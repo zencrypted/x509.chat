@@ -1,0 +1,101 @@
+<html><head><meta charset="utf-8" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="" />
+<meta name="author" content="Maxim Sokhatsky" /><title>CHAT X.509 FAQ</title>
+    <link rel="stylesheet" href="https://n2o.dev/blank.css" />
+    <link rel="stylesheet" href="https://n2o.dev/zima.css" />
+    <link rel="stylesheet" href="https://n2o.dev/pro/pro.css?v=1" />
+</head><body><nav>
+    <a href="https://x509.chat/">X.509</a>
+    <a href="https://zencrypted.github.com/x509/" style="background:#ededed;">FAQ</a>
+  <div class="dropdown">
+    <a onclick="drop()" class="dropbtn">UA</a>
+    <div id="dropdown" class="dropdown-content">
+      <a href="faq.html">UA</a>
+      <a href="faq.en.html">EN</a>
+    </div>
+  </div>
+</nav><header>
+    <a href="https://github.com/zencrypted/x509"><img src="https://openmoji.org/data/color/svg/E248.svg"/></a>
+    <h1>FAQ</h1>
+</header>
+<main>
+    <section>
+    <a name=principles><h3>ЧАСТІ ПИТАННЯ</h3></a>
+
+    <H4>Чому я не можу початитись з користувачем на іншій точці планети?</H4>
+
+    <p>Можливо ваш клієнт підтримує версію протоколу v1, тому переключіть, якщо це
+       можливо у вашій версії, на v2.</P>
+
+    <H4>Що таке версія v1?</H4>
+
+    <p>Версія протоколу v1 &mdash; це схема роботи клієнтів по UDP мультікаст протоколу MESSAGE,
+       де всі анонсують свою публічні ключі всім і кожен сам вибирає з ким спілкуватись.
+       Це працює тільки в локальних мережах, таких як Wi-Fi чи
+       локальних LTE 4G в EDGE офісах.</p>
+
+    <H4>Які види інформаційних повідомлень підтримує версія v1?</H4>
+
+    <p>Версія протоколу v1 підтримує текстові повідомленні, аудіо повідомлення записані з рекордера,
+       і файли. Кожен пейлоад передається зашифрований в CMS конверті.</p>
+
+    <H4>Де описаний протокол v1?</H4>
+
+    <p>Версія протоколу v1 описана і в
+   <a href="https://github.com/zencrypted/x509/blob/main/priv/v1/MESSAGE-v1.asn1">репозиторії клієнта</a>
+      і визначає три системних конверти для маршрутизаціх системних повідомлень <b class=se>Accouncement</b>,
+      <b class=se>Message</b>, і <b class=se>Ack</b> з відкритими заголовками.
+      Всередині Announcement передаються по UDP мультікаст X.509 сертифікати, і коли клієнти
+      домовляються про спілкування передаються пари Message з CMS конвертом і
+      квитанція про доставку Acknowledgement з номером Message.id. Кожен термінал виступає
+      кореневим CA.</p>
+
+    <H4>Чому може не працювати v1?</H4>
+
+    <P>Головні пункти діагностики:<br><br>
+       1) Переконайтеся, що ви в одній мережі. Наприклад, ви помилилися і підключилися до 5G замість 2.4G.<br>
+       2) Переконайтеся, що на роутері виключена AP isolation.<br>
+       3) Переконайтеся, що в налаштуваннях терміналу мережі Wi-Fi у вас стоїть виключений Private Wi-Fi: Off.<br>
+       4) На всякий випадок включіть і виключіть Wi-Fi.<br>
+       5) Перевірте рівень сигналу. Якшо кількість помилок у мережі велика, алгоритми доставки які регулюються таймаутами можуть не діяти,
+          тому повідомте нам свій рівень сигналу ми постараємося реалізувати варіативний алгоритм,
+          який для гіршого сигналу буде слати більше повідомлень в мультікаст режимі.</p>
+
+    <H4>Що таке версія v2?</H4>
+
+    <p>Версія v2 &mdash; це схема роботи з TLS брокером CHAT, який містить підписки, користувачів,
+       їх адресні книги, може містити різні ЄДРПОУ і тримає це все в LDAP директорії,
+       має свій CA сервер для видачі сертифікатів, TSP сервер для міток часу, і OCSP сервер для
+       відкликаних сертифікатів. Мобільні термінали v2 можуть теж виступати кореневими CA.</p>
+
+   <br><center>&dot;</center>
+   <br>
+
+    </section>
+    <section>
+    <a name=limitations><h3>ОБМЕЖЕННЯ v1</h3></a>
+    <p><b class=se>Локальні мережі</b>. Програма працює всередині тільки
+       однієї мережі, без маршрутизації, на роутері повинна бути відключена AP isolation,
+       на терміналі Private Wi-Fi: off.</p>
+
+    <p><b class=se>Маленькі пакети</b>. Програма працює по UDP з ретраями, тамаути яких
+       регулюються з налаштувань в інтерфейсі, тому великі файли передавати буде складно.
+       Маленькі аудіо повідомлення, документи &mdash; можна. Підберіть параметри відповідно
+       до вашого рівня сигналу.</p>
+
+    <p><b class=se>Developer License</b>. Тим, хто хоче форкнутися і попробувати
+       на реальних телефонах, доведеться купити Apple Developer License шоб запустити
+       з репозиторія і переконатися шо все працює. Передавати UDP мультікаст пакети в iOS
+       можна тільки включивши в девелопер акаунті
+       <b>com.apple.developer.networking.multicast</b> ентайтлмент.</p>
+
+   <br><center>&dot;</center>
+   <br>
+
+    </section>
+
+</main><footer>
+    Namdak Tonpa <span class="heart">❤</span> X509.CHAT
+</footer></body>
+<script>function drop(){document.getElementById("dropdown").classList.toggle("show");}</script>
+</html>

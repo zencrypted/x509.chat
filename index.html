@@ -1,300 +1,251 @@
 <html><head><meta charset="utf-8" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="" /><meta name="author" content="Maxim Sokhatsky" />
-<title>Zen Crypted X.509</title>
-    <link rel="stylesheet" href="https://n2o.dev/blank.css"/>
-    <link rel="stylesheet" href="https://n2o.dev/pro/pro.css"/>
-    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
-    <link rel="manifest" href="img/site.webmanifest">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="" />
+<meta name="author" content="Maxim Sokhatsky" /><title>CHAT X.509</title>
+    <link rel="stylesheet" href="https://n2o.dev/blank.css" />
+    <link rel="stylesheet" href="https://n2o.dev/zima.css" />
+    <link rel="stylesheet" href="https://n2o.dev/pro/pro.css?v=1" />
 </head><body><nav>
-    <a href="https://x509.chat" style="background:#ededed;">X.509</a>
+    <a href="https://x509.chat/">X.509</a>
+    <a href="https://zencrypted.github.com/x509/" style="background:#ededed;">X509</a>
+  <div class="dropdown">
+    <a onclick="drop()" class="dropbtn">UA</a>
+    <div id="dropdown" class="dropdown-content">
+      <a href="index.en.html">EN</a>
+      <a href="index.html">UA</a>
+      <a href="index.kz.html">KZ</a>
+    </div>
+  </div>
 </nav><header>
-    <a href="https://github.com/zencrypted"><img src="https://openmoji.org/data/color/svg/E248.svg" /></a>
+    <a href="https://github.com/zencrypted/x509"><img src="https://openmoji.org/data/color/svg/E248.svg"/></a>
     <h1>X.509</h1>
-    <div>Підтримка цивільних і військових міжнародних стандартів.</div>
 </header><aside>
     <article>
         <section>
-             <h3>ОГОЛОШЕННЯ</h3>
 
-            <div>Zen Crypted Chat X.509 анонсує формалізовану модель і специфікацію для мультікаст
-                 та юнікаст пабліш-сабскрайб брокерів і їх конфігурацій, а також
-                 референсні імплементації для сучасних оптимізованих підприємств
-                 на базі телекомунікаційної платформи Ericsson/OTP, які прагнуть
-                 стабільності і повноти, покладаючись на стандарти, які повільно
-                 міняються і не потребують перегляду десятиліттями.</div>
-            <br/>
-            <div>Специфікація на месаджінговий тракт піднімає питання ораганізації
-                 і топології складних, часто ненадійних мереж, а пов'язані з ним
-                 стандарти на серіалізатори визначають модель інфраструктури
-                 підприємства. Базуючись на зрілому стандарті X.680 наша компанія
-                 пропонує ASN.1 компілятори для мов C99, Java, Swift, Go,
-                 TypeScript, Rust.</div>
-            <br/>
-            <div>CHAT X.509 організація спеціалізується на розробці безпечних систем
-                 миттєвого обміну повідомленнями та ключових компонентів публічної
-                 інфраструктури ключів (PKI). Наші проєкти основані на стандартах
-                 ASN.1, X.509, CMS/S-MIME, LDAP, DNS та сучасних криптографічних
-                 протоколах (включаючи постквантову криптографію та MLS).</div><br/>
+            <h3>CHAT X.509</h3>
 
-            <div align="left"> 2023-2026 © <a href="http://5ht.co/license/">DHARMA</a> LICENSE </div>
+            <div>CHAT X.509 &mdash; це авторська програма Ігоря Горобця – безпечний
+                 критографічний iOS клієнт обміну CMS повідомленнями по протоколу
+                 з відкритим кодом на основі відкритого ключа PKI, яка використовує
+                 сервери лише у якості брокера для маршрутизації і надсилання наскрізних
+                 зашифрованих повідомлень без доступу до переписки та
+                 метаданих користувачів (v2), або може працювати взагалі без інтернету і
+                 сервера у локальних Wi-Fi і LTE мережах (v1). </div>
 
-        </section>
-            <section>
-                <h3>НЕПОРУШНОСТІ</h3>
-                <div>
-
-        <ul><li><a href="https://tonpa.guru/stream/2023/2023-09-01%20ASN1.EX%20X.680.htm">ASN.1</a> </li>
-            <li><a href="https://n2o.dev/books/bpe.pdf">BPMN</a> </li>
-            <li><a href="https://bitedits.github.io/skynet/skynet.pdf">LINK16</a> </li>
-            <li><a href="https://mqtt.erp.uno">MQTT</a> </li>
-            <li><a href="https://axiosis.github.io/books/erp/erp.pdf">Ericsson/OTP</a> </li>
-            </ul>
-                </div>
-            </section>
-
-
-    </article>
-
-  <article>
-        <section>
-            <center style="color:white;padding-top:20px;">Телекомунікації і військова промисловість:</center><br>
-            <div>UDP мультікаст Pub/Sub масштабований від LoRa до LTE мереж,
-                 а також цивільний протокол MQTT ASN.1 для CHAT X.509 додатку для приватних захищених EDGE мереж.</div>
-        </section>
-        <br>
-
-        <section>
-            <h3><a href="https://mail.erp.uno">MAIL</a></h3>
+            <h3><a href="#booklet">БРОШУРА</a></h3>
+            <div><ul><li><a href="#principles">ПРИНЦИПИ</a></li>
+                     <li><a href="#goals">ЦІЛІ</a></li>
+                     <li><a href="#social">СУСПІЛЬСТВО</a></li>
+                     <li><a href="#government">ДЕРЖАВА</a></li>
+                     <li><a href="#business">БІЗНЕС</a></li>
+                     <li><a href="#protocol">ПРОТОКОЛ</a></li>
+                     <li><a href="#technical">ХАРАКТЕРИСТИКИ</a></li>
+                     <li><a href="faq.html">FAQ</a></li>
+                     <li><a href="https://tonpa.guru/stream/2023/pdf/Datasheet.pdf">DATASHEET</a></li>
+                     <li><a href="https://tonpa.guru/stream/2023/pdf/Whitepaper.pdf">WHITEPAPER</a></li>
+                </ul></div>
+            <br />
             <div>
-                 <ul><li>AUTH</li>
-                     <li>MESSAGE</li>
-                     <li>ACK</li>
-                     <li>CUT</li>
-                 </ul>
-             </div>
+                VER 1.0 (6) 2026 © ROCCO 5HT IHO 999 <a href="https://5ht.co/license/">DHARMA</a>
+            </div>
+
         </section>
-
         <section>
-            <h3><a href="https://zencrypted.github.io/message/">MESSAGE</a></h3>
-            <div>
-                 <ul><li>AUTH</li>
-                     <li>MESSAGE</li>
-                     <li>ACK</li></ul>
-             </div>
-        </section>
+            <h3>UDP</h3>
 
-        <section>
-            <h3><a href="https://chat.n2o.dev">CHAT</a></h3>
-            <div>
-                 <ul><li>AUTH</li>
-                     <li>MESSAGE</li>
-                     <li>ACK</li>
-                     <li>FILE</li>
-                     <li>ROSTER</li>
-                     <li>HISTORY</li>
-                     <li>ROOM</li>
-                     <li>CONTACT</li>
-                     <li>FRIEND</li>
-                     <li>PROFILE</li></ul>
-             </div>
-        </section>
+            <div>MESSAGE-v1 &mdash; це назва ASN.1 файлу з описом протоколу Sokhatsky Messenger v1 –
+                 мультікаст UDP версії схеми обміну повідомленнями на основі відкритого ключа, яка не
+                 використовує сервери і інтернет, а працює повністю в демілітаризованій Wi-Fi зоні.
+                 Програмне забезпечення засноване на принципах конфіденційності,
+                 для нього не потрібен номер телефону чи будь-яка інша особиста інформація.</div>
 
-        <section>
-            <h3><a href="https://zencrypted.github.io/x509/">X509</a></h3>
-            <div>
-                 <ul><li>v1</li>
-                     <li>v2</li></ul>
-             </div>
-        </section>
+            <h3>TLS</h3>
 
-    </article>
-    <article>
+            <div>CHAT-v2 &mdash; це назва ASN.1 файлу з описом протоколу Sokhatsky Messenger v2 –
+                 юнікаст TCP версії схеми обміну повідомленнями на основі відкритого ключа, яка використовує
+                 сервери лише у якості брокера для маршрутизації і надсилання наскрізних
+                 зашифрованих повідомлень без доступу до переписки та метаданих користувачів.</div>
+            <br>
 
-        <section>
-            <h3><a href="https://mqtt.erp.uno">MQTT</a></h3>
-            <div>
-                 <ul><li><a href="https://mqtt.erp.uno/emqttd/man/mosquitto.htm">MOSQUITTO</a></li>
-                     <li><a href="https://mqtt.erp.uno/emqttd/man/nanomq.htm">NANOMQ</a></li>
-                     <li><a href="https://mqtt.erp.uno/emqttd/man/emqx.htm">EMQX</a></li>
-                     <li><a href="https://mqtt.erp.uno/emqttd/man/emq.htm">EMQ</a></li>
-                     <li><a href="https://mqtt.erp.uno/emqttd/man/mq.htm">MQ</li>
-                 </ul>
-             </div>
-        </section>
+            <figure><code> $ x509 -c x509.chat</code></figure>
 
-        <section>
-            <h3><a href="https://bitedits.github.io/skynet/">SKYNET</a></h3>
-            <div>
-             <ul><li>J-Message</li>
-                 <li>S-Message</li>
-                 <li>BEARER</li>
-                 <li>ENTITY</li>
-                 <li>QOS</li>
-                 <li>VMF/TSM/SRW</li>
-                 <li>MCAST</li>
-                 <li>LEADER</li>
-                 <li>SWARM</li>
-                 <li>LORA</li>
-                 <li>WIFI</li>
-                 <li>SRSRAN</li></ul>
-             </div>
-        </section>
-
-        <section>
-            <h3><a href="https://bitedits.github.io/rt/">RT</a></h3>
-            <div>
-             <ul><li>QEMU</li>
-                 <li>SIM</li>
-                 <li>CXD5602</li>
-                 <li>RP2040</li>
-                 <li>RP2350</li>
-             </div>
         </section>
     </article>
-    <article>
-        <section>
-            <center style="color:white;padding-top:20px;">Безпека:</center><br>
-            <div>Інтернет утворюючий простір протоколів і сервісів на базі телекомунікаційної платформи від Ericsson.</div>
-        </section>
-        <br>
-
-        <section>
-            <h3><a href="https://ca.n2o.dev">CA</a></h3>
-            <div>
-                 <ul><li>CMP</li>
-                     <li>OCSP</li>
-                     <li>TSP</li>
-                     <li>CSR</li>
-                     <li>PKI</li>
-                     <li>CMS</li></ul>
-             </div>
-        </section>
-        <section>
-            <h3><a href="https://ns.n2o.dev">NS</a></h3>
-            <div>
-                 <ul><li>UDP/DNS</li>
-                     <li>DNSSEC</li></ul>
-             </div>
-        </section>
-        <section>
-            <h3><a href="https://ldap.n2o.dev">LDAP</a></h3>
-            <div>
-                 <ul><li>TCP</li>
-                     <li>LDAP</li>
-                     <li>PKI</li>
-                     <li>TLS</li></ul>
-             </div>
-        </section>
-
-        <section>
-            <h3><a href="https://asn1.n2o.dev">ASN.1</a></h3>
-            <div>
-                 <ul><li>DER</li>
-                     <li>PER</li>
-                 </ul>
-             </div>
-        </section>
-    </article>
-
 </aside>
 <main>
     <section>
-        <h3>CHAT X.509</h3>
+   <br/><center>&dot;</center>
+   <br/><br/>
 
-        <p>
-            CHAT X.509 &mdash;  це безпечна програма обміну повідомленнями
-                 з відкритим кодом на основі відкритого ключа, яка використовує
-                 сервери лише у якості брокера для маршрутизації і надсилання наскрізних
-                 зашифрованих повідомлень без доступу до переписки та
-                 метаданих користувачів. Програмне забезпечення засноване на принципах конфіденційності,
-                 для нього не потрібен номер телефону чи будь-яка інша особиста інформація.</p>
+    <a name=name><h3>CHAT X.509 1.0</h3></a>
 
-        <p>
-             <ul><li>• Протокол v0 &mdash; WebSocket (Mail)</li>
-                 <li>• Протокол v1 &mdash; UDP (Message)</li>
-                 <li>• Протокол v2 &mdash; TLS (Chat)</li>
-                 <li>• Протокол v3 &mdash; MQTT (Broker)</li>
-                 <li>• Протокол v4 &mdash; MHS/IPMS (Air)</li>
-                 <li>• Протокол v5 &mdash; Skynet32 (Battlefield)</li>
-                 </ul></p>
+    <figure><img src="img/IMG_2282.PNG" height=400>
+            <img src="img/IMG_2283.PNG" height=400>
+            <img src="img/IMG_2284.PNG" height=400>
+            <img src="img/IMG_2285.PNG" height=400>
+            <img src="img/IMG_2286.PNG" height=400>
+            <img src="img/IMG_2294.PNG" height=400>
+            <img src="img/IMG_2295.PNG" height=400>
+            <img src="img/IMG_2296.PNG" height=400></figure>
+    <figure><img src="img/IMG_2287.PNG" height=400>
+            <img src="img/IMG_2288.PNG" height=400>
+            <img src="img/IMG_2289.PNG" height=400>
+            <img src="img/IMG_2290.PNG" height=400></figure>
 
-                 <p>CHAT X.509 належить до класу мультипрофільних месенжерів, захищених за
-                 допомогою ECC PKI сертифікатів. Чат побудований на телекомунікаційній
-                 платформі Erlang/OTP від Ericsson, підтримуює KYBER і MLS, часто змінює ключі
-                 та приймає і надсилає повідомлення в S/MIME сумісних CMS конвертах.</p>
+    <a name=principles><h3>ПРИНЦИПИ</h3></a>
 
-                 <p>Чат реалізований як простий сервер доставки миттєвих повідомлень розроблений для ненадійних мереж та у відповідності до стандартів ISO/IETF.
-                 Він використовує монолітний асинхронний TCP сервер і інфрактруктуру PKI: LDAP сервер для корпоративних
-                 ієрархічних конфігурацій, сервер імен DNSSEC та CA/CMP/EST сервер для видачі ключів:</p>
+    <p>Компанія користується наступними принципами які формують цілі продукту:</p>
 
-            <p>
-                 <ul><li>• LDAP для директорії користувачів;</li>
-                     <li>• DNS для безпеки іменного простору;</li>
-                     <li>• CA для видачі сертифікатів.</li></ul>
-            <p>
+       <p><b class=se>Конфіденційність</b>. Кожне повідомлення шифрується за допомогою моделей полів Галуа GF(2^m) GCM або з
+         використанням еліптичних кривих та групових операції на них, які зберігаються в X.509 CMS конвертах.
+         Нешифровані месаджі не в CMS конвертах заборонені в системі.</p>
 
-       <br><center>&dot;</center>
+    <p><b class=se>Верифіковуваність</b>. Повний вихідний код чат X.509 клієнтів і
+       серверних рішень CHAT доступний на GitHub. Це дає змогу зацікавленим сторонам
+       перевірити код на безпеку та правильність, а не як у інших криптографічних провайдерів України.
+       Всі серверні субкомпоненти системи написані на Erlang та доступні для верифікації та ліцензування публічно.
+       Єдиний і повний автор усіх компонент системи який здійснює свою політику згідно BDFL собору є Максим Сохацький.</p>
+
+    <p><b class=se>Інтероперабельність</b>. Додаток відповідає світовим та державним телекомунікаційним (ISO/IETF/ITU/IEEE/ANSI) та
+       криптографічним (NIST/FIPS) стандартам . Це означає, що ми не придумали нічого свого,
+       а лише реалізували усе у відповідності до стандартів, як це робить Nokia, Siemens, Ericsson, Apple, Microsoft, Google, тощо. </p>
+
+    <p><b class=se>Мінімалістичність</b>. Базовий додаток займає 5МБ, ми переконані, що якісне програмне
+        забезпечення вимагає верифікації на всіх рівнях, а отже повинно бути мінімалістичним. Ми взяли
+        за основу сучасний SwiftUI декларативний фреймворк і повторили в ньому еститику рідного додатку.</p>
+
+   <br><center>&dot;</center>
+   <br>
+
+    </section>
+    <section>
+    <a name=goals><h3>ЦІЛІ</h3></a>
+
+       <p><b class=se>Контакти</b> не зберігаються на серверах. Вся контактна інформація про ваші підписки, чати, канали, та компанії
+         може зберігатися ексклюзивно на клієнті. Після логіна на іншому присторії користовач має змогу отримати
+         контактну книгу (ростер) з іншого клієнта, який працює на іншому пристрої;</p>
+
+       <p><b class=se>Повідомлення</b> не зберігаються на серверах. Транзієнта оперативна черга доставки повідомлень на MNESIA.
+         Кожне повідомлення після останнього кроку отримання квитанції про доставку кореспондентом знищується на сервері
+         і залишається відтепер тільки на клієнті. Так працювали перші версії Viber;</p>
+
+       <p><b class=se>Метадані</b> не зберігаються на серверах. Месенжер не зберігає ніяких метаданих, як то локація, IP адреса,
+          інформація про апаратуру клієнта, тощо. ЧАТ використовує тільки наступні внутрішнін ідетифікатори: client,
+          device, profile, roster виключно для роутінга повідомлень. Користувач також має змогу обрати зберігати
+           контактну книгу (ростер) не на сервері, а на клієнті;</p>
+
+   <br><center>&dot;</center>
+   <br>
+
+    </section>
+
+
+    <section>
+
+    <a name=social><h3>СУСПІЛЬСТВО</h3></a>
+    <p>Зроблено для людей:</p>
+    <p>— Безкоштовний захищений анонімний месенджер;<br>
+       — Безкоштовний захищений веріфікований месенджер;<br>
+       — Безпека персональних даних при спілкуванні в Інтернеті;<br>
+       — Календар (iCal) та Контакт (vCard) органайзер;<br>
+       — Референсний iOS UI дизайн, додаток без залежностей;<br>
+       — Відкритий консольний клієнт;<br>
+   <br><center>&dot;</center>
+    </section>
+
+    <section>
+    <a name=government><h3>ДЕРЖАВА</h3></a>
+    <p>Підтримка програми інформатизації:</p>
+    <p>
+       — B2C сервісні канали для ОВВ;<br>
+       — Цифровізація держпослуг та звернень громадян;<br>
+       — Використання електронного підпису документів онлайн;<br>
+       — Інтегровані системи масового оповіщення;<br>
+       — Державний або корпоративний ДСТУ 4145 логін.<br>
+    </p>
+   <br><center>&dot;</center>
+    </section>
+
+    <section>
+    <a name=business><h3>БІЗНЕС</h3></a>
+    <p>Форми співробітництва:</p>
+    <p>
+       — B2C сервісні канали для Бізнесу;<br>
+       — Автономні впровадження на ВАШИХ потужностях;<br>
+       — Хостинг сервісу по підписці на НАШИХ потужностях;<br>
+       — Багато-ростерні конфігурації по підписці;<br>
+       — Інтеграційне API SDK для партнерських програм;<br>
+       — Конфігурація під потреби бізнесу.<br>
+    </p>
+   <br><center>&dot;</center>
+    </section>
+
+
+    <section>
+    <a name=protocol><h3>ПРОТОКОЛ</h3></a>
+
+     <p><b class=se>Канали, Повідомлення і Сервіси</b>. Ключі які використовують користувачі складаються з трьох типів-пар (можна більше, але типів всього три):
+        1) <b>Перша</b> пара ключів SECP384R1 забезпечує безпеку каналу TLS 1.3 засобами еліптичної криптографії власного АЦСК/CA;
+        2) <b>Друга</b> пара ключів ED25519 забезпечує безпеку повідомлень;
+        3) <b>Третя</b> пара ключів забезпечує доступ до державних та юридичних сервісів ДСТУ-4145.
+        Кожен учасник системи перед комунікацією здійснює реанонс своїх публічних частин цих асиметричних ключів.</p>
+
+     <p><b class=se>Відкритість платформи X.509</b>. Єдиний додаток як в часи IRC та
+        XMPP забезпечує доступ до всіх серверів сумісних з X.509 таких як CHAT, LDAP, OCSP, TSP, DNSSEC, CA.
+        Таким чином клієнт підримує довільну кількість ключів та довільну кількість серверів.
+        І вся ця інформація зберігається тільки на клієнті. Сам клієнт може виступати
+        ефімерним CA у версії протоколу <b>v1</b>.</p>
+
+    <p>Версія протоколу <b>v1</b> описана в
+   <a href="https://github.com/zencrypted/x509/blob/main/priv/v1/MESSAGE-v1.asn1">репозиторії X.509 клієнта</a>
+      і визначає три системних конверти для маршрутизаціх системних повідомлень <b class=se>Accouncement</b>,
+      <b class=se>Message</b>, і <b class=se>Ack</b> з відкритими заголовками.
+      Всередині Announcement передаються по UDP мультікаст X.509 сертифікати, і коли клієнти
+      домовляються про спілкування передаються пари Message з CMS конвертом і
+      квитанція про доставку Acknowledgement з номером Message.id. Кожен термінал виступає
+      кореневим CA.</p>
+
+    <p>Версія протоколу <b>v2</b> описана і в
+   <a href="https://github.com/zencrypted/x509/blob/main/priv/v2/CHAT-v2.asn1">репозиторії X.509 клієнта</a>
+      і в <a href="https://github.com/synrc/chat/blob/main/priv/v2/CHAT-v2.asn1">репозиторії CHAT сервера</a>,
+      але поки не реалізована. Чекайте реліз на найближче велике свято. Подібна версія протоколу
+      апробована у виробництві в 2016 році з нашим фірмовим Erlang/OTP MQTT брокером <a href="https://mqtt.erp.uno">MQTT</a> комунікаційної платформи Skynet.</p>
+
+   <br><center>&dot;</center>
+   <br>
 
     </section>
 
     <section>
-        <h3>CHAT X.509 STANDARDS</h3>
 
-        <p style="font-size:13pt;">
-           <b>ISO:</b> 1012, 9001, 25010, 8807, 9126, 12207, 13568,
-           8824-8825, 19510, 19514, 42010, 20922, 27036, 50001,
-           9001, 20000, 26262, 14001, 14644, 10218, 13482, 12207, 29148.
-           <b>DTLS SCTP QUIC HYBI STD 6 63:</b> 768, 7414, 3629,
-           4180, 6455, 5246, 8446, 1034-1035, 4033-4035, 9260,
-           9653, 9368-9369, 9308, 9312,  9287, 9114, 9204, 9221,
-           8999, 9000, 9001, 9002.
+    <a name=technical><h3>ХАРАКТЕРИСТИКИ</h3></a>
 
-           <b>PKI:</b> 7030, 6960, 6818, 6844, 6712, 6664, 6402,
-           6277, 6170, 6024, 6025, 5934, 5912—5914, 5877, 5816,
-           5755, 5756, 5758, 5697, 5636, 5480, 5272—5274, 5280,
-           5055, 5019, 4985, 4683, 4630, 4476, 4387, 4325, 4158,
-           4210, 4211, 4055, 4043, 3874, 3779, 3820, 3739, 3709,
-           3628, 3161, 2559, 2587.
+    <h4>СТАНДАРТИ</h4>
 
-           <b>LDAP: </b> 2849, 3296, 3671—3673, 3866, 4511—4518,
-           4522, 4525, 4526, 4529, 2377, 2820, 3352, 3384,
-           3494, 4510, 4520, 4521, 2589, 2649, 2696, 2891, 3062,
-           3829, 3876, 3909, 3928, 4370, 4373, 4527, 4527, 4531—4533,
-           5805, 6171, 2798, 2926, 2985, 3045, 3112, 3687,
-           3698, 4517, 4519, 4524, 4530, 5020, 2307, 2713,
-           2714, 2739, 3641, 3642, 3703, 3727, 4104, 4403, 4523,
-           4792, 4876, 5803, 7612, 8284.
+    <p>NIST: SP 800 38D-56A-57-162, P-384, P-571;<br>
+        ISO: 15946 10646 8824 8825;<br>
+       ANSI: X9-64, X9-62;<br>
+       FIPS: PUB 180-4;<br>
+       ДСТУ: 4541 28147 GF(2^509);<br>
+        ITU: X.509 (PKI), X.894 (CMS), X.680-X.683 X.690-697 (ASN.1);<br>
+      ДССЗІ: #112 14.05.2010 #1236/5/453 20.08.2012 #687 27.10.2020.</p>
 
-           <b>SMIME:</b> 5990, 5911, 5750—5754, 5652, 5408,
-           5409, 5275, 5126, 5035, 4853, 4490, 4262, 4134, 4056,
-           4010, 3657, 3560, 3565,
-           3537, 3394, 3114, 3278, 3218, 3211,
-           3217, 3183, 3185, 3058, 2984, 2876, 2785,
-           5083, 5084.
+    <h4>КРИПТОГРАФІЧНІ АЛГОРИТМИ</h4>
 
-           <b>RTP: </b> 2029, 2032, 2035, 2038,
-           2190, 2250, 2198, 2343, 2429, 2431, 2435, 2508, 2658,
-           2733, 2736, 2762, 2793, 2833, 2862, 2959, 3016, 3047,
-           3095, 3096, 3119, 3158, 3189, 3190, 3242, 3243, 3257,
-           3267, 3389, 3409, 3497, 3545, 3550, 3551, 3555, 3556,
-           3557, 3558, 3611, 3640, 3711, 3952, 3984, 4019, 4040,
-           4060, 4102, 4103, 4170, 4175, 4184, 4298, 4348, 4351,
-           4352, 4383, 4396, 4421, 4424, 4425, 4568, 4571, 4573.
+    <p>Протоколи ключів: SECP-571r1, GF(2^509);<br>
+       Похідні ключі: KDF, PBDKF2, HKDF, AES-KW;<br>
+       Шифри: AES-CBC, AES-GCM, AES-CCM,&nbsp;КАЛИНА;<br>
+       Хеші: SHA-2, POLY-1305, AES-CMAK,&nbsp;КУПИНА, CAdES;<br>
+       Протоколи груп: MLS;<br>
+       Постквантова критпографія: KYBER, IBE.</p>
 
-           <b>NIST:</b> SP 800-162 (ABAC), SP 800 38D-56A-57-162, P-384, P-571.
-           <b>FIPS:</b> FIPS 140-2/3.
-</p>
-
-       <br><center>&dot;</center>
-
-    </section>
-</main>
-<footer>
    <br><center>&dot;</center>
    <br>
-Namdak Tonpa <span class="heart">❤</span> 2023&mdash;2026</footer></body>
+
+    </section>
+
+</main><footer>
+    Namdak Tonpa <span class="heart">❤</span> X509.CHAT
+</footer></body>
 <script>function drop(){document.getElementById("dropdown").classList.toggle("show");}</script>
 </html>

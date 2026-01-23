@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="Maxim Sokhatsky" />
+    <title>X.509 CHAT FAQ</title>
+    <link rel="stylesheet" href="https://n2o.dev/blank.css" />
+    <link rel="stylesheet" href="https://n2o.dev/zima.css" />
+    <link rel="stylesheet" href="https://n2o.dev/pro/pro.css?v=1" />
+</head>
+<body>
+<nav>
+    <a href="https://x509.chat/">X.509</a>
+    <a href="https://zencrypted.github.io/x509/" style="background:#ededed;">FAQ</a>
+    <div class="dropdown">
+        <a onclick="drop()" class="dropbtn">EN</a>
+        <div id="dropdown" class="dropdown-content">
+            <a href="faq.html">UA</a>
+            <a href="faq.en.html">EN</a>
+        </div>
+    </div>
+</nav>
+<header>
+    <a href="https://github.com/zencrypted/x509"><img src="https://openmoji.org/data/color/svg/E248.svg"/></a>
+    <h1>FAQ</h1>
+</header>
+<main>
+    <section>
+        <a name="principles"><h3>FREQUENTLY ASKED QUESTIONS</h3></a>
+
+        <h4>Why can’t I chat with a user located in another part of the world?</h4>
+        <p>Your client may only support protocol version v1. If your client version allows it, please switch to v2.</p>
+
+        <h4>What is version v1?</h4>
+        <p>Protocol version v1 is a client operation scheme that uses the UDP multicast MESSAGE protocol. All participants announce their public keys to everyone in the network, and each user individually selects whom to communicate with. This works only within local networks, such as Wi-Fi or local 4G LTE networks in offices.</p>
+
+        <h4>What types of messages does version v1 support?</h4>
+        <p>Version v1 supports text messages, audio messages recorded via the built-in recorder, and file transfers. Every payload is transmitted encrypted inside a CMS envelope.</p>
+
+        <h4>Where is protocol v1 described?</h4>
+        <p>Protocol version v1 is documented in the <a href="https://github.com/zencrypted/x509/blob/main/priv/v1/MESSAGE-v1.asn1">client repository</a>. It defines three system envelopes for routing system messages: <b class="se">Announcement</b>, <b class="se">Message</b>, and <b class="se">Ack</b>, with open headers.
+        X.509 certificates are sent via UDP multicast inside the Announcement envelope. Once clients agree to communicate, Message pairs (containing a CMS envelope) are exchanged along with an Acknowledgement receipt referencing the Message.id. Each device acts as its own root CA.</p>
+
+        <h4>Why might v1 not work?</h4>
+        <p>Key diagnostic steps:<br><br>
+        1) Verify that all devices are on the same network (e.g., you may have accidentally connected to 5 GHz instead of 2.4 GHz).<br>
+        2) Ensure that AP isolation (client isolation) is disabled on the router.<br>
+        3) Ensure that Private Wi-Fi Address (or randomized MAC address) is turned off in the device’s Wi-Fi settings.<br>
+        4) Toggle Wi-Fi off and back on as a basic troubleshooting step.<br>
+        5) Check signal strength. High packet error rates can cause the timeout-based delivery mechanisms to fail. If you experience this, please report your signal level to us—we will consider implementing an adaptive algorithm that increases multicast retransmissions for weaker signals.</p>
+
+        <h4>What is version v2?</h4>
+        <p>Version v2 operates through a TLS broker called CHAT, which manages subscriptions, users, address books, and can store various EDRPOU entries. All data is maintained in an LDAP directory. The system includes its own CA server for certificate issuance, a TSP server for time-stamping, and an OCSP server for certificate revocation. Mobile devices running v2 can also function as root CAs.</p>
+
+        <br><center>•</center><br>
+    </section>
+
+    <section>
+        <a name="limitations"><h3>LIMITATIONS OF v1</h3></a>
+
+        <p><b class="se">Local Networks Only</b>. The application functions exclusively within a single broadcast domain with no routing between networks. AP isolation must be disabled on the router, and Private Wi-Fi Address must be turned off on the device.</p>
+
+        <p><b class="se">Small Packets</b>. The application uses UDP with configurable retry timeouts (adjustable in the settings). Transferring large files is therefore difficult. Small audio messages and documents can be sent successfully—tune the timeout parameters according to your signal quality.</p>
+
+        <p><b class="se">Apple Developer Program Requirement</b>. To fork the repository and test the application on real iOS devices, an Apple Developer Program membership is required. This allows building and running the app from source and verifying functionality. Sending UDP multicast packets on iOS is only permitted when the <b>com.apple.developer.networking.multicast</b> entitlement is enabled in the developer account.</p>
+
+        <br><center>•</center><br>
+    </section>
+</main>
+<footer>
+    Namdak Tonpa <span class="heart">❤</span> X509.CHAT
+</footer>
+</body>
+<script>
+function drop(){
+    document.getElementById("dropdown").classList.toggle("show");
+}
+</script>
+</html>
