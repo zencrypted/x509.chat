@@ -1,11 +1,22 @@
 <html><head><meta charset="utf-8" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="" />
 <meta name="author" content="Maxim Sokhatsky" /><title>CHAT X.509</title>
-    <link rel="stylesheet" href="x509.css" />
+    <link rel="stylesheet" href="https://n2o.dev/blank.css" />
+    <link rel="stylesheet" href="https://n2o.dev/zima.css" />
+    <link rel="stylesheet" href="https://n2o.dev/pro/pro.css?v=1" />
 </head><body><nav>
     <a href="https://x509.chat/">X.509</a>
+  <div class="dropdown">
+    <a onclick="drop()" class="dropbtn">UA</a>
+    <div id="dropdown" class="dropdown-content">
+      <a href="index.en.html">EN</a>
+      <a href="index.html">UA</a>
+      <a href="index.kz.html">KZ</a>
+    </div>
+  </div>
 </nav><header>
-    <h1>CHAT X.509</h1>
+    <a href="https://github.com/zencrypted/x509"><img src="https://openmoji.org/data/color/svg/E248.svg"/></a>
+    <h1>X.509</h1>
 </header><aside>
     <article>
         <section>
@@ -19,8 +30,8 @@
                  зашифрованих повідомлень без доступу до переписки та
                  метаданих користувачів (v2), або може працювати взагалі без інтернету і
                  сервера у локальних Wi-Fi і LTE мережах (v1). </div>
-            <br>
-            <h3>БРОШУРА</h3>
+
+            <h3><a href="#booklet">БРОШУРА</a></h3>
             <div><ul><li><a href="#principles">ПРИНЦИПИ</a></li>
                      <li><a href="#goals">ЦІЛІ</a></li>
                      <li><a href="#social">СУСПІЛЬСТВО</a></li>
@@ -39,7 +50,6 @@
 
         </section>
         <section>
-            <br>
             <h3>UDP</h3>
 
             <div>MESSAGE-v1 &mdash; це назва ASN.1 файлу з описом протоколу Sokhatsky Messenger v1 –
@@ -48,7 +58,6 @@
                  Програмне забезпечення засноване на принципах конфіденційності,
                  для нього не потрібен номер телефону чи будь-яка інша особиста інформація.</div>
 
-            <br>
             <h3>TLS</h3>
 
             <div>CHAT-v2 &mdash; це назва ASN.1 файлу з описом протоколу Sokhatsky Messenger v2 –
@@ -77,6 +86,10 @@
             <img src="img/IMG_2294.PNG" height=400>
             <img src="img/IMG_2295.PNG" height=400>
             <img src="img/IMG_2296.PNG" height=400></figure>
+    <figure><img src="img/IMG_2287.PNG" height=400>
+            <img src="img/IMG_2288.PNG" height=400>
+            <img src="img/IMG_2289.PNG" height=400>
+            <img src="img/IMG_2290.PNG" height=400></figure>
 
     <a name=principles><h3>ПРИНЦИПИ</h3></a>
 
@@ -231,11 +244,7 @@
     </section>
 
 </main><footer>
-    Zen Crypted <span class="heart">❤</span> Chat X.509
+    Namdak Tonpa <span class="heart">❤</span> X509.CHAT
 </footer></body>
-<script>function drop(){document.getElementById("dropdown").classList.toggle("show");}
-window.addEventListener('scroll', () => {
-    document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 50);
-});
-</script>
+<script>function drop(){document.getElementById("dropdown").classList.toggle("show");}</script>
 </html>
