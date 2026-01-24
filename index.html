@@ -183,17 +183,16 @@
         ефімерним CA у версії протоколу <b>v1</b>.</p>
 
     <p><b class=se>Sokhatsky Messenger Protocol v1</b> описаний в
-   <a href="https://github.com/zencrypted/message/blob/main/priv/v1/MESSAGE-v1.asn1">репозиторії X.509 клієнта</a>
+   <a href="https://github.com/zencrypted/message/blob/main/priv/v1/MESSAGE-v1.asn1">репозиторії MESSAGE клієнта</a>
       і визначає три конверти для маршрутизаціх системних повідомлень Accouncement,
       Message, і Ack (з відкритими заголовками), що передаються по UDP мультікаст.
       Всередині Announcement містяться X.509 сертифікати, і коли клієнти домовляються про спілкування,
       передаються пари Message з CMS конвертом і квитанція про доставку Acknowledgement з номером Message.id.
       Кожен термінал виступає кореневим CA.</p>
 
-    <p><b class=se>Sokhatsky Messenger Protocol v2</b> описаний і в
-   <a href="https://github.com/zencrypted/x509/blob/main/priv/v2/CHAT-v2.asn1">репозиторії X.509 клієнта</a>
+    <p><b class=se>Sokhatsky Messenger Protocol v2</b> описаний в
       і в <a href="https://github.com/synrc/chat/blob/main/priv/v2/CHAT-v2.asn1">репозиторії CHAT сервера</a>,
-      але поки не реалізована. Чекайте реліз на найближче велике свято. Подібна версія протоколу була
+      але поки не реалізований. Чекайте реліз на найближче велике свято. Подібна версія протоколу була
       апробована у виробництві в 2016 році з нашим фірмовим Erlang/OTP <a href="https://mqtt.erp.uno">MQTT</a> брокером,
       знаним як <b>v3</b>.</p>
 
