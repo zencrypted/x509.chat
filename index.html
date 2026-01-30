@@ -115,7 +115,7 @@
 
        <p><b class=se>Метадані</b> не зберігаються на серверах. Месенжер не зберігає ніяких метаданих, як то локація, IP адреса,
           інформація про апаратуру клієнта, тощо. ЧАТ використовує тільки наступні внутрішнін ідетифікатори: client,
-          device, profile, roster виключно для роутінга повідомлень. Користувач також має змогу обрати зберігати
+          device, roster виключно для роутінга повідомлень. Користувач також має змогу обрати зберігати
            контактну книгу (ростер) не на сервері, а на клієнті;</p>
 
    <br><center>&dot;</center>
@@ -182,14 +182,16 @@
 
     <p><b class=se>Chat X.509 Protocol v1</b> описаний в
    <a href="https://github.com/zencrypted/message/blob/main/priv/v1/MESSAGE-v1.asn1">репозиторії MESSAGE клієнта</a>
-      і визначає три конверти для маршрутизаціх системних повідомлень Accouncement,
+      і визначає три конверти для маршрутизаціх системних повідомлень Authority,
       Message, і Ack (з відкритими заголовками), що передаються по UDP мультікаст.
       Всередині Announcement містяться X.509 сертифікати, і коли клієнти домовляються про спілкування,
       передаються пари Message з CMS конвертом і квитанція про доставку Acknowledgement з номером Message.id.
       Кожен термінал виступає кореневим CA.</p>
 
     <p><b class=se>Chat X.509 Protocol v2</b> описаний в
-      і в <a href="https://github.com/synrc/chat/blob/main/priv/v2/CHAT-v2.asn1">репозиторії CHAT сервера</a>.</p>
+      і в <a href="https://github.com/synrc/chat/blob/main/priv/v2/CHAT-v2.asn1">репозиторії CHAT сервера</a> і містить
+      крім Authority, File, Message і Ack ще Subscruption, Activity, Search, Person, Roster, Member, Conference
+      інформаціні повідомлення які реалізують спеціалізований брокер підписок для конференцій і приватних чатів.</p>
 
    <br><center>&dot;</center>
    <br>
