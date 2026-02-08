@@ -3,9 +3,10 @@
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
 \usepackage{url}
+\usepackage{hyperref}
 \usepackage{amsmath,amssymb,amsthm}
 
-\title{A Comparative Analysis of Cryptographic Protocols in Secure Messaging Applications: Ciphers, Algorithms, and Design Decisions}
+\title{A Note on Comparative Analysis of Cryptographic Protocols in Secure Messaging Applications: Ciphers, Algorithms, and Design Decisions}
 \author{Namdak Tonpa}
 \date{February 2026}
 
@@ -14,8 +15,14 @@
 \maketitle
 
 \begin{abstract}
-Secure messaging applications rely on end-to-end encryption (E2EE) to protect user communications from interception and tampering. This article examines the cryptographic protocols employed by five messaging systems---Threema, Signal Protocol, Session (Oxen/Loki), Chat X.509 v1, and WhatsApp---focusing on their ciphers, algorithms, and underlying design decisions. A comparative analysis of key parameters reveals trade-offs in forward secrecy, post-compromise security, quantum resistance, performance, and implementation complexity. Protocols implementing the Double Ratchet algorithm achieve superior long-term security properties, while others prioritize simplicity and efficiency at the expense of resilience after key compromise. The implications of these choices for future protocol evolution, including post-quantum cryptography, are discussed.
+Secure messaging applications rely on end-to-end encryption (E2EE)
+to protect user communications from interception and tampering.
+This article examines the cryptographic protocols employed by
+five messaging systems --- Threema, Signal, Session, WhatsApp, and Chat X.509
+--- focusing on their ciphers, algorithms, and underlying design decisions.
 \end{abstract}
+
+\tableofcontents
 
 \section{Introduction}
 
@@ -26,13 +33,13 @@ The protocols under consideration are:
     \item Threema
     \item Signal Protocol (basis for Signal and WhatsApp)
     \item Session (Oxen/Loki network)
-    \item Chat X.509 v1
     \item WhatsApp (modified Signal Protocol implementation)
+    \item Chat X.509 v1/v2
 \end{itemize}
 
 The comparison is structured around a set of core cryptographic parameters, followed by an analysis of the design trade-offs that led to the observed differences.
 
-\section{Background}
+\section{Cryptographical Properties}
 
 \subsection{Key Agreement and Identity}
 
@@ -50,7 +57,9 @@ Forward secrecy (FS) ensures that compromise of long-term keys does not reveal p
 
 Post-compromise security (PCS), also known as future secrecy or self-healing, allows a session to recover confidentiality after a temporary device compromise, provided no further messages are sent by the attacker. The Double Ratchet algorithm is the most widely deployed mechanism providing both properties simultaneously.
 
-\section{Comparative Overview}
+\section{Protocol Comparison}
+
+\subsection{Threema and Session}
 
 The table below summarizes the principal cryptographic parameters of the five protocols.
 
@@ -72,6 +81,8 @@ Quantum Resistance              & Low                                       & Lo
 \end{tabular}
 \end{center}
 
+\subsection{Signal and WhatsApp}
+
 \begin{center}
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
@@ -90,6 +101,7 @@ Quantum Resistance              & Low (PQXDH variant exists)                & Lo
 \end{tabular}
 \end{center}
 
+\subsection{Chat X.509}
 
 \begin{center}
 \begin{tabular}{|l|l|l|l|l|l|}
@@ -109,8 +121,7 @@ Quantum Resistance              & Low                                       & PQ
 \end{tabular}
 \end{center}
 
-
-\section{Analysis of Design Decisions}
+\section{Design Analysis}
 
 \subsection{Signal Protocol and WhatsApp}
 
@@ -135,8 +146,6 @@ All five protocols currently offer low quantum resistance due to their reliance 
 \section{Conclusion}
 
 The cryptographic design choices in secure messengers reflect different priorities: maximal secrecy properties (Signal, WhatsApp), implementation simplicity and performance (Threema, Session), or standards compliance and interoperability (Chat X.509 v1). As quantum threats mature and group messaging requirements grow, future protocols will likely combine hybrid post-quantum key exchange, ratchet-based secrecy, and MLS-style group management.
-
-\section*{References}
 
 \begin{thebibliography}{9}
 
