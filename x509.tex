@@ -1,0 +1,190 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{url}
+\usepackage{amsmath,amssymb,amsthm}
+
+\title{A Comparative Analysis of Cryptographic Protocols in Secure Messaging Applications: Ciphers, Algorithms, and Design Decisions}
+\author{}
+\date{February 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Secure messaging applications rely on end-to-end encryption (E2EE) to protect user communications from interception and tampering. This article examines the cryptographic protocols employed by five messaging systems---Threema, Signal Protocol, Session (Oxen/Loki), Chat X.509 v1, and WhatsApp---focusing on their ciphers, algorithms, and underlying design decisions. A comparative analysis of key parameters reveals trade-offs in forward secrecy, post-compromise security, quantum resistance, performance, and implementation complexity. Protocols implementing the Double Ratchet algorithm achieve superior long-term security properties, while others prioritize simplicity and efficiency at the expense of resilience after key compromise. The implications of these choices for future protocol evolution, including post-quantum cryptography, are discussed.
+\end{abstract}
+
+\section{Introduction}
+
+End-to-end encrypted messaging has become a cornerstone of digital privacy. The strength of such systems depends critically on the cryptographic primitives and protocol constructions chosen during development. This work compares five representative secure messaging protocols with respect to their key agreement mechanisms, symmetric encryption schemes, authentication methods, secrecy properties, and supporting cryptographic libraries.
+
+The protocols under consideration are:
+\begin{itemize}
+    \item Threema
+    \item Signal Protocol (basis for Signal and WhatsApp)
+    \item Session (Oxen/Loki network)
+    \item Chat X.509 v1
+    \item WhatsApp (modified Signal Protocol implementation)
+\end{itemize}
+
+The comparison is structured around a set of core cryptographic parameters, followed by an analysis of the design trade-offs that led to the observed differences.
+
+\section{Background}
+
+\subsection{Key Agreement and Identity}
+
+Most modern messaging protocols use elliptic curve Diffie--Hellman (ECDH) for key agreement. Curve25519 (and its X25519 Diffie--Hellman function) is widely adopted due to its high security margin, constant-time implementation, and resistance to several classes of implementation attacks. NIST P-256 remains in use in environments requiring standards compliance or PKI integration.
+
+Long-term identity keys are typically employed for authentication, with Ed25519 frequently chosen for signing due to its speed and collision resistance.
+
+\subsection{Symmetric Encryption and Authenticated Encryption}
+
+Authenticated encryption with associated data (AEAD) constructions have become standard. AES-256-GCM is the most widely deployed AEAD mode, offering high performance on modern hardware thanks to AES-NI instructions. The XSalsa20-Poly1305 construction, derived from NaCl/libsodium, provides an alternative stream-cipher-based AEAD scheme that avoids many pitfalls associated with nonce reuse in counter-based modes.
+
+\subsection{Forward Secrecy and Post-Compromise Security}
+
+Forward secrecy (FS) ensures that compromise of long-term keys does not reveal past session keys. This is typically achieved through ephemeral key exchanges.
+
+Post-compromise security (PCS), also known as future secrecy or self-healing, allows a session to recover confidentiality after a temporary device compromise, provided no further messages are sent by the attacker. The Double Ratchet algorithm is the most widely deployed mechanism providing both properties simultaneously.
+
+\section{Comparative Overview}
+
+The table below summarizes the principal cryptographic parameters of the five protocols.
+
+\begin{center}
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\textbf{Parameter}              & \textbf{Threema}                          & \textbf{Session}                  \\ \hline
+Key Agreement                   & Curve25519 ECDH (eph.-static)             & Ed25519-X25519                    \\ \hline
+Identity / Long-term            & Curve25519 key pair                       & Ed25519-X25519                    \\ \hline
+Key Derivation                  & HSalsa20                                  & Argon2id                          \\ \hline
+Symmetric Encryption            & XSalsa20                                  & XSalsa20-Poly1305                 \\ \hline
+Authentication / MAC            & Poly1305                                  & Poly1305                          \\ \hline
+Authenticated Encryption        & XSalsa20 + Poly1305                       & XSalsa20-Poly1305                 \\ \hline
+Forward Secrecy                 & Ephemeral (no ratchet)                    & Ephemeral (no ratchet)            \\ \hline
+Post-Compromise Security        & No                                        & No                                \\ \hline
+Standards / Format              & Custom binary (NaCl-inspired)             & libsodium sealed boxes            \\ \hline
+Curve Family                    & Curve25519                                & Curve25519                        \\ \hline
+Quantum Resistance              & Low                                       & Low                               \\ \hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\textbf{Parameter}              & \textbf{Signal Protocol}                  & \textbf{WhatsApp}                         \\ \hline
+Key Agreement                   & X25519 (X3DH + 2-Ratchet)                 & X25519 (X3DH + 2-Ratchet)                 \\ \hline
+Identity / Long-term            & X25519 + Ed25519 signing                  & X25519 + Ed25519 signing                  \\ \hline
+Key Derivation                  & HKDF (SHA-256/512)                        & HKDF (SHA-256/512)                        \\ \hline
+Symmetric Encryption            & AES-256-GCM                               & AES-256-GCM                               \\ \hline
+Authentication / MAC            & GCM tag / HMAC-SHA256                     & GCM tag                                   \\ \hline
+Authenticated Encryption        & AES-256-GCM                               & AES-256-GCM                               \\ \hline
+Forward Secrecy                 & Yes (Double Ratchet)                      & Yes (Double Ratchet)                      \\ \hline
+Post-Compromise Security        & Yes                                       & Yes                                       \\ \hline
+Standards / Format              & Custom binary                             & Custom binary (Signal)                    \\ \hline
+Curve Family                    & Curve25519                                & Curve25519                                \\ \hline
+Quantum Resistance              & Low (PQXDH variant exists)                & Low (PQXDH variant exists)                \\ \hline
+\end{tabular}
+\end{center}
+
+
+\begin{center}
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\textbf{Parameter}              & \textbf{Chat X.509 v1}                    & \textbf{Chat X.509 v2}                         \\ \hline
+Key Agreement                   & NIST P-256 ECDH (ephemeral)               & Curve25519 ECDH                                \\ \hline
+Identity / Long-term            & X.509 cert + P-256 key pair               & X.509 cert + Curve25519 key pair               \\ \hline
+Key Derivation                  & HKDF-SHA256                               & HKDF-SHA256                                    \\ \hline
+Symmetric Encryption            & AES-256-GCM                               & Chacha20\_poly1305                             \\ \hline
+Authentication / MAC            & AES-GCM tag                               & 16-byte POLY1305 tag                           \\ \hline
+Authenticated Encryption        & AES-256-GCM                               & POLY1305                                       \\ \hline
+Forward Secrecy                 & Ephemeral (no ratchet)                    & Ephemeral (no Ratchet yet!)                    \\ \hline
+Post-Compromise Security        & No                                        & Ratchet healing                                \\ \hline
+Standards / Format              & X.509 X.894 X.680 X.690                   & X.509 X.894 X.680 X.690                        \\ \hline
+Curve Family                    & NIST P-256                                & Curve25519                                     \\ \hline
+Quantum Resistance              & Low                                       & PQXDH                                          \\ \hline
+\end{tabular}
+\end{center}
+
+
+\section{Analysis of Design Decisions}
+
+\subsection{Signal Protocol and WhatsApp}
+
+The Signal Protocol combines the Extended Triple Diffie--Hellman (X3DH) key agreement with the Double Ratchet for per-message key evolution. This design provides both forward secrecy and post-compromise security while supporting asynchronous message delivery and out-of-order message processing. The choice of Curve25519 reflects a preference for modern, implementation-resistant curves over legacy NIST curves. AES-256-GCM was selected for its hardware acceleration and misuse resistance. WhatsApp inherits this design but modifies group key management (Sender Keys) to scale to very large user bases.
+
+\subsection{Threema}
+
+Threema adopts the NaCl/libsodium cryptographic API, using XSalsa20-Poly1305 for encryption and Curve25519 for key agreement without ratcheting. The design prioritizes implementation simplicity, constant-time execution, and low latency over post-compromise recovery. This choice is reasonable for a system emphasizing minimal server-side state and moderate group sizes (up to 256 members).
+
+\subsection{Session (Oxen/Loki)}
+
+Session uses libsodium sealed boxes and Argon2id for memory-hard key derivation, reflecting a focus on resistance to offline attacks and decentralized routing. Like Threema, it omits ratcheting to reduce complexity and state requirements, accepting the absence of post-compromise security.
+
+\subsection{Chat X.509 v1}
+
+This protocol integrates traditional X.509 public-key infrastructure with NIST P-256 and CMS enveloped data formats. The design favors interoperability with enterprise PKI environments and standards-based tooling over modern secrecy properties. The lack of ratcheting is a deliberate simplification, trading advanced security for compatibility.
+
+\section{Future Directions}
+
+All five protocols currently offer low quantum resistance due to their reliance on elliptic curves vulnerable to Shor's algorithm. Hybrid post-quantum constructions (e.g., PQXDH combining X25519 with lattice-based key encapsulation mechanisms) are already being deployed experimentally in Signal-based applications. The ongoing standardization of Messaging Layer Security (MLS) promises improved group key management with forward secrecy and post-compromise security at scale.
+
+\section{Conclusion}
+
+The cryptographic design choices in secure messengers reflect different priorities: maximal secrecy properties (Signal, WhatsApp), implementation simplicity and performance (Threema, Session), or standards compliance and interoperability (Chat X.509 v1). As quantum threats mature and group messaging requirements grow, future protocols will likely combine hybrid post-quantum key exchange, ratchet-based secrecy, and MLS-style group management.
+
+\section*{References}
+
+\begin{thebibliography}{9}
+
+\bibitem{threema:crypto-whitepaper}
+Threema GmbH.
+\newblock Cryptography Whitepaper.
+\newblock Threema GmbH, March 2025.
+\newblock Version: March 13, 2025.
+\newblock \url{https://threema.com/press-files/2_documentation/cryptography_whitepaper.pdf}.
+
+\bibitem{signal:doubleratchet}
+Trevor Perrin, Moxie Marlinspike, and Rolfe Schmidt.
+\newblock The Double Ratchet Algorithm.
+\newblock Signal Messenger, November 2025.
+\newblock Revision 4, 2025-11-04.
+\newblock \url{https://signal.org/docs/specifications/doubleratchet/doubleratchet.pdf}.
+
+\bibitem{signal:x3dh}
+Trevor Perrin.
+\newblock The X3DH Key Agreement Protocol.
+\newblock Signal Messenger, November 2016.
+\newblock Revision 1, 2016-11-04.
+\newblock \url{https://signal.org/docs/specifications/x3dh/x3dh.pdf}.
+
+\bibitem{whatsapp:encryption-overview}
+WhatsApp LLC.
+\newblock WhatsApp Encryption Overview: Technical White Paper.
+\newblock WhatsApp LLC, August 2024.
+\newblock Version 8, Updated August 19, 2024.
+\newblock \url{https://www.whatsapp.com/security/WhatsApp-Security-Whitepaper.pdf}.
+
+\bibitem{jefferys:session-whitepaper}
+Kee Jefferys, Maxim Shishmarev, and Simon Harman.
+\newblock Session: End-To-End Encrypted Conversations With Minimal Metadata Leakage.
+\newblock \emph{arXiv preprint arXiv:2002.04609}, July 2024.
+\newblock Updated July 4, 2024.
+\newblock \url{https://arxiv.org/pdf/2002.04609}.
+
+\bibitem{oxen:session-whitepaper-orig}
+Loki Project.
+\newblock Loki Network Whitepaper.
+\newblock July 2018.
+\newblock Early foundation document for Session / Oxen messaging.
+\newblock \url{https://loki.network/wp-content/uploads/2020/02/Whitepaper.pdf}.
+
+\end{thebibliography}
+
+\end{document}
+
+
+
