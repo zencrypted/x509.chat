@@ -6,7 +6,7 @@
 \usepackage{hyperref}
 \usepackage{amsmath,amssymb,amsthm}
 
-\title{A Note on Cryptographic Protocol Parameters of Secure Messengers}
+\title{Cryptographic Properties of Secure Messengers}
 \author{Namdak Tonpa}
 \date{February 2026}
 
@@ -18,7 +18,7 @@
 Secure messaging applications rely on end-to-end encryption (E2EE)
 to protect user communications from interception and tampering.
 This article examines the cryptographic protocols employed by
-five messaging systems --- Chat X.509, Session, Signal, Threema, Viber and WhatsApp
+six messaging systems --- Chat X.509, Session, Signal, Threema, Viber and WhatsApp
 --- focusing on their ciphers, algorithms, and underlying design decisions.
 \end{abstract}
 
@@ -167,12 +167,9 @@ High software speed, mandatory in TLS 1.3.
 ChaCha20-Poly1305 is used in Chat X.509 v2
 
 \subsubsection{XSalsa20-Poly1305}
-libsodium sealed boxes: XSalsa20 encryption + Poly1305 authentication using derived one-time keys.
-XSalsa20-Poly1305 is used in Session.
-
-\subsubsection{XSalsa20-Poly1305}
 NaCl-style separate encryption and authentication (not strictly AEAD but equivalent security when composed correctly).
-XSalsa20-Poly1305 is used in Threema.
+libsodium sealed boxes: XSalsa20 encryption + Poly1305 authentication using derived one-time keys.
+XSalsa20-Poly1305 is used in Session and Threema.
 
 \newpage
 \subsection{Forward Secrecy}
