@@ -101,6 +101,26 @@ Quantum Resistance              & Low (PQXDH variant exists)                & Lo
 \end{tabular}
 \end{center}
 
+\subsection{Viber and Telegram}
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Parameter} & \textbf{Telegram Secret Chats} & \textbf{Viber} \\ \hline
+Key Agreement        & 2048-bit DH & X25519 (X3DH + Double Ratchet) \\ \hline
+Identity / Long-term & Server-mediated (long-term) & X25519 + Ed25519 signing \\ \hline
+Key Derivation       & Custom (SHA-256 based) & HKDF (SHA-256/512) \\ \hline
+Symmetric Encryption & AES-256-IGE & AES-256-GCM \\ \hline
+Authentication / MAC     & Custom SHA-256 msg\_key & GCM tag \\ \hline
+Authenticated Encryption & Custom (IGE + MAC) & AES-256-GCM \\ \hline
+Forward Secrecy          & Yes (100msgs/1week) & Yes (Double Ratchet) \\ \hline
+Post-Compromise Security & No & Yes \\ \hline
+Standards / Format       & MTProto 2.0 custom & Proprietary (2-Ratchet) \\ \hline
+Curve Family             & None (finite-field DH) & Curve25519 \\ \hline
+Quantum Resistance              & Low                                       & Low                               \\ \hline
+\end{tabular}
+\end{center}
+
 \subsection{Chat X.509}
 
 \begin{center}
@@ -139,11 +159,9 @@ Session uses libsodium sealed boxes and Argon2id for memory-hard key derivation,
 
 This protocol integrates traditional X.509 public-key infrastructure with NIST P-256 and CMS enveloped data formats. The design favors interoperability with enterprise PKI environments and standards-based tooling over modern secrecy properties. The lack of ratcheting is a deliberate simplification, trading advanced security for compatibility.
 
-\section{Future Directions}
+\section{Conclusion}
 
 All five protocols currently offer low quantum resistance due to their reliance on elliptic curves vulnerable to Shor's algorithm. Hybrid post-quantum constructions (e.g., PQXDH combining X25519 with lattice-based key encapsulation mechanisms) are already being deployed experimentally in Signal-based applications. The ongoing standardization of Messaging Layer Security (MLS) promises improved group key management with forward secrecy and post-compromise security at scale.
-
-\section{Conclusion}
 
 The cryptographic design choices in secure messengers reflect different priorities: maximal secrecy properties (Signal, WhatsApp), implementation simplicity and performance (Threema, Session), or standards compliance and interoperability (Chat X.509 v1). As quantum threats mature and group messaging requirements grow, future protocols will likely combine hybrid post-quantum key exchange, ratchet-based secrecy, and MLS-style group management.
 
