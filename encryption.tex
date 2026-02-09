@@ -20,11 +20,24 @@ to protect user communications from interception and tampering.
 This article examines the cryptographic protocols employed by
 six messaging systems --- Chat X.509, Session, Signal, Threema, Viber and WhatsApp
 --- focusing on their ciphers, algorithms, and underlying design decisions.
+
+A comparative analysis of key parameters reveals trade-offs in key agreement, symmetric encryption algorithms,
+forward secrecy, post-compromise security, performance, and implementation complexity.
+Protocols implementing the Double Ratchet algorithm achieve superior long-term security
+properties, while others prioritize simplicity and efficiency at the expense of
+resilience after key compromise. The implications of these choices for future
+protocol evolution are discussed.
+
 \end{abstract}
 
+\newpage
 \tableofcontents
 
-\section{Introduction}
+\section{Cryptographic Properties}
+
+This section provides detailed technical descriptions of the cryptographic primitives and protocol mechanisms appearing in the comparison tables across the examined messaging systems. The parameters are organized into subsections corresponding to the table rows, with explanations of each variant used in the protocols.
+
+\subsection{Introduction}
 
 End-to-end encrypted messaging has become a cornerstone of digital privacy. The strength of such systems depends critically on the cryptographic primitives and protocol constructions chosen during development. This work compares five representative secure messaging protocols with respect to their key agreement mechanisms, symmetric encryption schemes, authentication methods, secrecy properties, and supporting cryptographic libraries.
 
@@ -40,9 +53,6 @@ The protocols under consideration are:
 
 The comparison is structured around a set of core cryptographic parameters, followed by an analysis of the design trade-offs that led to the observed differences.
 
-\section{Cryptographic Properties}
-
-This section provides detailed technical descriptions of the cryptographic primitives and protocol mechanisms appearing in the comparison tables across the examined messaging systems. The parameters are organized into subsections corresponding to the table rows, with explanations of each variant used in the protocols.
 
 \subsection{Key Agreement}
 
@@ -172,18 +182,17 @@ NaCl-style separate encryption and authentication (not strictly AEAD but equival
 libsodium sealed boxes: XSalsa20 encryption + Poly1305 authentication using derived one-time keys.
 XSalsa20-Poly1305 is used in Session and Threema.
 
-\newpage
 \subsection{Forward Secrecy}
 
-\subsubsection{Yes via Double Ratchet}
+\subsubsection{Double Ratchet}
 Per-message key deletion and DH ratcheting ensure past messages remain confidential even if long-term keys are later compromised.
 Double Ratchet is used in Signal, WhatsApp, Viber.
 
-\subsubsection{Ephemeral without ratchet}
+\subsubsection{Ephemeral}
 Session keys derived from ephemeral ECDH; provides FS for the session duration but not per-message.
 Ephemeral without ratchet is used in Threema, Session, Chat X.509.
 
-\subsubsection{Periodic rotation}
+\subsubsection{Periodic Rotation}
 Keys rotated after 100 messages or one week, limiting exposure window.
 Periodic rotation is used in Chat X.509 v1.
 
@@ -197,7 +206,7 @@ Double Ratchet is used in Signal, WhatsApp, Viber.
 Custom mechanism providing limited post-compromise recovery (implementation details not fully standardized).
 Ratchet healing is used in Chat X.509 v2.
 
-\subsubsection{No PCS}
+\subsubsection*{No PCS}
 No mechanism to introduce fresh entropy after compromise; requires new session initiation for recovery.
 Applicable to Threema, Session, Chat X.509 v1.
 
@@ -248,7 +257,6 @@ Standards / Format              & Custom binary                             & Cu
 
 The Signal Protocol combines the Extended Triple Diffie--Hellman (X3DH) key agreement with the Double Ratchet for per-message key evolution. This design provides both forward secrecy and post-compromise security while supporting asynchronous message delivery and out-of-order message processing. The choice of Curve25519 reflects a preference for modern, implementation-resistant curves over legacy NIST curves. AES-256-GCM was selected for its hardware acceleration and misuse resistance. WhatsApp inherits this design but modifies group key management (Sender Keys) to scale to very large user bases.
 
-\newpage
 \subsection{Viber}
 
 \begin{center}
@@ -291,7 +299,7 @@ Standards / Format              & X.509 X.894 X.680 X.690                   & X.
 This protocol integrates traditional X.509 public-key infrastructure with NIST P-256 and CMS enveloped data formats. The design favors interoperability with enterprise PKI environments and standards-based tooling over modern secrecy properties. The lack of ratcheting is a deliberate simplification, trading advanced security for compatibility.
 
 \newpage
-\section{Conclusion}
+\subsection{Conclusion}
 
 All five protocols currently offer low quantum resistance due to their reliance on elliptic curves vulnerable to Shor's algorithm. Hybrid post-quantum constructions (e.g., PQXDH combining X25519 with lattice-based key encapsulation mechanisms) are already being deployed experimentally in Signal-based applications. The ongoing standardization of Messaging Layer Security (MLS) promises improved group key management with forward secrecy and post-compromise security at scale.
 
