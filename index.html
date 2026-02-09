@@ -192,6 +192,10 @@
       крім Authority, File, Message і Ack ще Subscription, Activity, Search, Person, Roster, Member, Conference
       інформаціні повідомлення які реалізують спеціалізований брокер підписок для конференцій і приватних чатів.</p>
 
+    <p><b class=se>Криптографічна архітектура КП КЗІ X.509</b>. Загальний криптографічний аналіз
+       і порівняльна характеристика з п'ятьма криптографічними месанжерами викладена у файлі
+       <a href="https://x509.chat/encryption.pdf">https://x509.chat/encryption.pdf</a>.
+
    <br><center>&dot;</center>
    <br>
 
@@ -213,11 +217,11 @@
 
     <h4>КРИПТОГРАФІЧНІ АЛГОРИТМИ</h4>
 
-    <p>Протоколи ключів: SECP-571r1, GF(2^509);<br>
+    <p>Протоколи ключів: SECP-256r1, SECP-384r1, SECP-571r1, GF(2^509), X25519, X488;<br>
        Похідні ключі: KDF, PBDKF2, HKDF, AES-KW;<br>
-       Шифри: AES-CBC, AES-GCM, AES-CCM,&nbsp;КАЛИНА;<br>
-       Хеші: SHA-2, POLY-1305, AES-CMAK,&nbsp;КУПИНА, CAdES;<br>
-       Протоколи груп: MLS;<br>
+       Шифри: ChaCha20, AES-CBC, AES-GCM, AES-CCM, КАЛИНА;<br>
+       Хеші: SHA-2, Poly1305, AES-CMAK, КУПИНА, CAdES;<br>
+       Протоколи груп: MLS, Double Ratchet;<br>
        Постквантова критпографія: KYBER, IBE.</p>
 
    <br><center>&dot;</center>
