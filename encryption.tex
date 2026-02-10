@@ -345,13 +345,13 @@ Standards / Format              & Custom binary                             & Cu
 \begin{tabular}{|l|l|l|}
 \hline
 \textbf{Parameter}       & \textbf{Telegram Secret Chats} & \textbf{Viber} \\ \hline
-Key Agreement            & 2048-bit DH                    & X25519 (X3DH + Double Ratchet) \\ \hline
+Key Agreement            & 2048-bit DH                    & X25519 (X3DH + 2-Ratchet) \\ \hline
 Identity / Long-term     & Server-mediated (long-term)    & X25519 + Ed25519 signing \\ \hline
 Key Derivation           & Custom (SHA-256 based)         & HKDF (SHA-256/512) \\ \hline
 Symmetric Encryption     & AES-256-IGE                    & AES-256-GCM \\ \hline
 Authentication / MAC     & Custom SHA-256 msg\_key        & GCM tag \\ \hline
 Authenticated Encryption & Custom (IGE + MAC)             & AES-256-GCM \\ \hline
-Forward Secrecy          & Yes (100msgs/1week)            & Yes (Double Ratchet) \\ \hline
+Forward Secrecy          & Yes (100msgs/1week)            & Yes (2-Ratchet) \\ \hline
 Post-Compromise Security & No                             & Yes \\ \hline
 Standards / Format       & MTProto 2.0 custom             & Proprietary (2-Ratchet) \\ \hline
 Curve Family             & None (finite-field DH)         & Curve25519 \\ \hline
