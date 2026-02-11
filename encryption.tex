@@ -315,9 +315,9 @@ WhatsApp inherits this design but modifies group key management
 Key Agreement            & Curve25519 ECDH                & X25519 (3XDH + 2-Ratchet) \\
 Identity / Long-term     & X.509 cert + X25519            & X.509 cert + X25519 \\
 Key Derivation           & HKDF-SHA256                    & HKDF-SHA256 \\
-Symmetric Encryption     & Chacha20-Poly1305              & Chacha20-Poly1305 \\
+Symmetric Encryption     & ChaCha20                       & ChaCha20 \\
 Authentication / MAC     & 16-byte Poly1305 tag           & 16-byte Poly1305 tag \\
-Authenticated Encryption & Poly1305                       & Poly1305 \\
+Authenticated Encryption & ChaCha20-Poly1305              & ChaCha20-Poly1305 \\
 Forward Secrecy          & Ephemeral Static               & Yes (2-Ratchet) \\
 Post-Compromise Security & No                             & Yes (Ratchet healing) \\
 Standards / Format       & X.509 X.894 X.680 X.690        & X.509 X.894 X.680 X.690 \\ \hline
