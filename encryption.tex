@@ -81,18 +81,19 @@
 End-to-end encrypted (E2EE) messaging has become a cornerstone of digital privacy.
 The strength of such systems depends critically on the cryptographic primitives
 and protocol constructions chosen during development.
-This work compares five representative secure messaging protocols with respect
+This work compares six representative secure messaging protocols with respect
 to their key agreement mechanisms, symmetric encryption schemes, authentication
 methods, secrecy properties, and supporting cryptographic libraries.
 
 The protocols under consideration are:
 \begin{itemize}
-    \item Chat X.509
-    \item Session
     \item Signal
-    \item Threema
-    \item Viber
     \item WhatsApp
+    \item Chat X.509
+    \item Threema
+    \item Session
+    \item Telegram
+    \item Viber
 \end{itemize}
 
 The comparison is structured around a set of core cryptographic parameters,
@@ -193,8 +194,7 @@ Argon2id is used in Session.
 \subsubsection*{HSalsa20}
 Core Salsa20 function applied to a 256-bit key and 128-bit nonce
 to derive a 256-bit subkey. Used in NaCl/libsodium for XSalsa20
-nonce extension.
-HSalsa20 is used in Threema.
+nonce extension. HSalsa20 is used in Threema.
 
 \subsection{Symmetric Encryption}
 
@@ -219,11 +219,11 @@ XSalsa20 is used in Threema, Session.
 \subsubsection*{Poly1305}
 One-time Wegman--Carter authenticator over \(\mathbb{F}_{2^{130}-5}\),
 128-bit security with unique keys/nonces.
-Poly1305 is used in Threema, Session, Chat X.509 v2.
+Poly1305 is used in Threema, Session, Chat X.509 v1/v2.
 
 \subsubsection*{GCM tag}
 Galois-field authentication (GHASH) providing 128-bit security (birthday bound).
-GCM tag is used in Signal, WhatsApp, Chat X.509 v1, Viber.
+GCM tag is used in Signal, WhatsApp, Viber.
 
 \subsubsection*{HMAC-SHA256}
 Standard HMAC construction for additional authentication in ratchet chains.
@@ -234,11 +234,11 @@ HMAC is used in Signal additional layers.
 \subsubsection*{AES-256-GCM}
 Counter-mode encryption with Galois/Counter Mode authentication.
 Parallelizable, hardware-accelerated via AES-NI, ~128-bit security.
-AES-256-GCM AE is used in Signal, WhatsApp, Chat X.509 v1, Viber.
+AES-256-GCM AE is used in Signal, WhatsApp, Viber.
 
 \subsubsection*{ChaCha20-Poly1305}
 RFC 8439 AEAD: ChaCha20 keystream XOR encryption + Poly1305 authentication.
-High software speed, mandatory in TLS 1.3. ChaCha20-Poly1305 is used in Chat X.509 v2.
+High software speed, mandatory in TLS 1.3. ChaCha20-Poly1305 is used in Chat X.509 v1/v2.
 
 \subsubsection*{XSalsa20-Poly1305}
 NaCl-style separate encryption and authentication (not strictly AEAD but
@@ -251,12 +251,12 @@ XSalsa20-Poly1305 is used in Session and Threema.
 \subsubsection*{Double Ratchet}
 Per-message key deletion and DH ratcheting ensure past messages remain
 confidential even if long-term keys are later compromised.
-Double Ratchet (2-Ratched) is used in Signal, WhatsApp, Viber.
+Double Ratchet (2-Ratchet) is used in Signal, WhatsApp, Viber.
 
 \subsubsection*{Ephemeral}
 Session keys derived from ephemeral ECDH; provides forward secrecy
 for the session duration but not per-message. Ephemeral without
-ratchet is used in Threema, Session, Chat X.509 v1.
+ratchet is used in Threema, Session.
 
 \subsection{Post-Compromise Security}
 
@@ -361,7 +361,7 @@ WhatsApp inherits this design but modifies group key management
 \hline
 \textbf{Parameter}       & \textbf{Chat X.509 v1}         & \textbf{Chat X.509 v2} \\ \hline
 Key Agreement            & NIST P-256 ECDH                & X25519 (X3DH + 2-Ratchet) \\
-Identity / Long-term     & X.509 cert SECP256v1 key       & X.509 cert X25519 key\\
+Identity / Long-term     & X.509 cert secp256r1 key       & X.509 cert X25519 key\\
 Key Derivation           & HKDF-SHA256                    & HKDF-SHA256 \\
 Symmetric Encryption     & ChaCha20                       & ChaCha20 \\
 Authentication / MAC     & 16-byte Poly1305 tag           & 16-byte Poly1305 tag \\
