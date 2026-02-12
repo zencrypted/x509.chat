@@ -251,7 +251,7 @@ XSalsa20-Poly1305 is used in Session and Threema.
 \subsubsection*{Double Ratchet}
 Per-message key deletion and DH ratcheting ensure past messages remain
 confidential even if long-term keys are later compromised.
-Double Ratchet is used in Signal, WhatsApp, Viber.
+Double Ratchet (2-Ratched) is used in Signal, WhatsApp, Viber.
 
 \subsubsection*{Ephemeral}
 Session keys derived from ephemeral ECDH; provides forward secrecy
@@ -263,7 +263,61 @@ ratchet is used in Threema, Session, Chat X.509 v1.
 \subsubsection*{Double Ratchet}
 Asymmetric DH ratchet introduces fresh entropy, allowing recovery of
 confidentiality after temporary state compromise.
-Double Ratchet is used in Signal, WhatsApp, Viber, Char X.509 v2.
+Double Ratchet is used in Signal, WhatsApp, Viber, Chat X.509 v2.
+
+\newpage
+\subsection{Standards and Format of Messages}
+
+Integrating X.509 public key infrastructure (PKI) into a secure
+messaging system like Chat X.509 enables seamless interoperability
+with existing corporate PKI deployments, which are already widely
+used for VPN access, secure email (S/MIME), code signing, and device
+authentication. Enterprises maintaining internal certificate
+authorities (CA) or relying on commercial CA can directly
+issue and manage user certificates for Chat X.509 without
+introducing parallel key management systems. This reduces
+administrative overhead, eliminates the need for separate
+identity registration processes, and allows organizations
+to enforce existing policies—such as mandatory key strengths,
+expiration periods, or role-based certificate attributes—directly
+within the messaging application. Revocation is handled through
+standard mechanisms like Certificate Revocation Lists (CRL)
+and Online Certificate Status Protocol (OCSP), ensuring that
+compromised credentials can be disabled instantly across all
+services, a capability that decentralized or self-signed key
+systems typically lack. For large organizations, this integration
+translates into lower deployment costs, simplified auditing, and
+consistent security governance across communication tools.
+
+On the governmental side, X.509 PKI integration aligns Chat X.509
+with national digital identity frameworks and official secure
+communication standards, many of which are built on X.509
+certificates (e.g., eIDAS in the European Union, federal PKI
+in the United States, or national eID card systems). Agencies
+can leverage existing trusted root CAs to authenticate users
+and devices, enabling secure, verifiable communications between
+government entities, contractors, and citizens without requiring
+proprietary key distribution. This supports regulatory
+compliance (e.g., FISMA, GDPR, or critical infrastructure
+protection directives) and facilitates controlled information
+sharing in sensitive environments.
+
+By binding long-term identity
+keys and signing prekeys with standard X.509 certificates,
+Chat X.509 preserves end-to-end encryption and modern secrecy
+properties (in v2) while inheriting the robust trust model,
+revocation infrastructure, and legal recognition that established
+governmental PKIs provide—advantages that purely decentralized
+protocols cannot match in regulated or hierarchical settings.
+
+The key features of X.509 wrapped security:
+
+\begin{itemize}
+\item Identity keys are bound in standard X.509 certificates.
+\item Prekeys/one-time prekeys are signed by the certificate’s private key.
+\item Clients can validate certificates against enterprise trust stores or public roots.
+\item Revocation via CRL/OCSP, policy enforcement, interoperability with existing PKI tooling.
+\end{itemize}
 
 \newpage
 
@@ -280,7 +334,7 @@ processing.
 \begin{center}
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
-\textbf{Parameter}       & \textbf{Signal Protocol}       & \textbf{WhatsApp} \\ \hline
+\textbf{Parameter}       & \textbf{Signal}                & \textbf{WhatsApp} \\ \hline
 Key Agreement            & X25519 (X3DH + 2-Ratchet)      & X25519 (X3DH + 2-Ratchet) \\
 Identity / Long-term     & X25519 + Ed25519 signing       & X25519 + Ed25519 signing \\
 Key Derivation           & HKDF (SHA-256/512)             & HKDF (SHA-256/512) \\
@@ -300,21 +354,20 @@ was selected for its hardware acceleration and misuse resistance.
 WhatsApp inherits this design but modifies group key management
 (Sender Keys) to scale to very large user bases.
 
-
 \subsection{Chat X.509}
 
 \begin{center}
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
 \textbf{Parameter}       & \textbf{Chat X.509 v1}         & \textbf{Chat X.509 v2} \\ \hline
-Key Agreement            & Curve25519 ECDH                & X25519 (3XDH + 2-Ratchet) \\
-Identity / Long-term     & X.509 cert + X25519            & X.509 cert + X25519 \\
+Key Agreement            & NIST P-256 ECDH                & X25519 (X3DH + 2-Ratchet) \\
+Identity / Long-term     & X.509 cert SECP256v1 key       & X.509 cert X25519 key\\
 Key Derivation           & HKDF-SHA256                    & HKDF-SHA256 \\
 Symmetric Encryption     & ChaCha20                       & ChaCha20 \\
 Authentication / MAC     & 16-byte Poly1305 tag           & 16-byte Poly1305 tag \\
 Authenticated Encryption & ChaCha20-Poly1305              & ChaCha20-Poly1305 \\
 Forward Secrecy          & Ephemeral Static               & Yes (2-Ratchet) \\
-Post-Compromise Security & No                             & Yes (Ratchet healing) \\
+Post-Compromise Security & No                             & Yes (2-Ratchet) \\
 Standards / Format       & X.509 X.894 X.680 X.690        & X.509 X.894 X.680 X.690 \\ \hline
 \end{tabular}
 \end{center}
@@ -347,10 +400,10 @@ minimal server-side state and moderate group sizes (up to 256 members). \\
 Key Agreement            & Curve25519 ECDH (Ephemeral)    & Ed25519-X25519 \\
 Identity / Long-term     & Curve25519 key pair            & Ed25519-X25519 \\
 Key Derivation           & HSalsa20                       & Argon2id \\
-Symmetric Encryption     & XSalsa20                       & XSalsa20-Poly1305 \\
+Symmetric Encryption     & XSalsa20                       & XChaCha20 \\
 Authentication / MAC     & Poly1305                       & Poly1305 \\
-Authenticated Encryption & XSalsa20 + Poly1305            & XSalsa20-Poly1305 \\
-Forward Secrecy          & Ephemeral (no ratchet)         & Ephemeral (no ratchet) \\
+Authenticated Encryption & XSalsa20-Poly1305              & XChaCha20-Poly1305 \\
+Forward Secrecy          & Ephemeral (session)            & Ephemeral (session) \\
 Post-Compromise Security & No                             & No \\
 Standards / Format       & Custom binary (NaCl-inspired)  & libsodium sealed boxes \\ \hline
 \end{tabular}
@@ -363,14 +416,14 @@ Standards / Format       & Custom binary (NaCl-inspired)  & libsodium sealed box
 \hline
 \textbf{Parameter}       & \textbf{Telegram Secret Chats} & \textbf{Viber} \\ \hline
 Key Agreement            & 2048-bit DH                    & X25519 (X3DH + 2-Ratchet) \\
-Identity / Long-term     & Server-mediated (long-term)    & X25519 + Ed25519 signing \\
+Identity / Long-term     & Server-mediated (long-term)    & X25519 ket pair\\
 Key Derivation           & Custom (SHA-256 based)         & HKDF (SHA-256/512) \\
-Symmetric Encryption     & AES-256-IGE                    & AES-256-GCM \\
-Authentication / MAC     & Custom SHA-256 msg\_key        & GCM tag \\
-Authenticated Encryption & Custom (IGE + MAC)             & AES-256-GCM \\
+Symmetric Encryption     & AES-256-IGE                    & XSalsa20 \\
+Authentication / MAC     & Custom SHA-256 msg\_key        & HMAC-SHA256 \\
+Authenticated Encryption & Custom (IGE + MAC)             & XSalsa20+HMAC-SHA256 \\
 Forward Secrecy          & Yes (100msgs/1week)            & Yes (2-Ratchet) \\
-Post-Compromise Security & No                             & Yes \\
-Standards / Format       & MTProto 2.0 custom             & Proprietary (2-Ratchet) \\ \hline
+Post-Compromise Security & No                             & Yes (2-Ratchet) \\
+Standards / Format       & MTProto 2.0 custom             & 160-bit \\ \hline
 \end{tabular}
 \end{center}
 
