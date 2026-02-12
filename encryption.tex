@@ -68,7 +68,7 @@
   Secure messaging applications rely on end-to-end encryption (E2EE)
   to protect user communications from interception and tampering.
   This article examines the cryptographic protocols employed by
-  five messaging systems --- Threema, Signal, Session, WhatsApp, and Chat X.509
+  several messaging systems --- Signal, WhatsApp, Threema, Session, Chat X.509, Telegram (Secret Chats), and Viber
   --- focusing on their ciphers, algorithms, and underlying design decisions.
 \end{abstract}
 
@@ -81,11 +81,12 @@
 End-to-end encrypted (E2EE) messaging has become a cornerstone of digital privacy.
 The strength of such systems depends critically on the cryptographic primitives
 and protocol constructions chosen during development.
-This work compares six representative secure messaging protocols with respect
+
+This work compares several representative secure messaging protocols with respect
 to their key agreement mechanisms, symmetric encryption schemes, authentication
 methods, secrecy properties, and supporting cryptographic libraries.
-
 The protocols under consideration are:
+
 \begin{itemize}
     \item Signal
     \item WhatsApp
@@ -96,13 +97,13 @@ The protocols under consideration are:
     \item Viber
 \end{itemize}
 
-The comparison is structured around a set of core cryptographic parameters,
+The comparison is structured around a set of core cryptographic parameters (Chat X.509 is highlighted for its unique X.509 integration),
 followed by an analysis of the design trade-offs that led to the observed differences.
 
-\subsection{Key Agreement}
+\subsection{Key Agreement DH}
 
 Key agreement establishes shared secrets between parties.
-All examined protocols use elliptic-curve-based Diffie--Hellman variants.
+All examined protocols use elliptic-curve-based (EC) Diffie--Hellman (DH) variants.
 
 \subsubsection*{NIST P-256 ECDH}
 The NIST P-256 curve (secp256r1) is a 256-bit elliptic curve over the prime
@@ -122,8 +123,7 @@ By^2 = x^3 + Ax^2 + x, \quad A = 486662, \, B = 1.
 \]
 The X25519 function provides constant-time scalar multiplication with
 cofactor \(h=8\) and approximately 128-bit security. Its design prioritizes
-side-channel resistance and transparent parameters. Curve25519 / X25519 is
-used in Threema, Signal, WhatsApp, Session, Chat X.509 v2, Viber.
+side-channel resistance and transparent parameters. Curve25519 / X25519 is used in Threema, Signal, WhatsApp, Session, Chat X.509 v2, and Viber.
 
 \subsubsection*{Ed25519}
 Ed25519 is a twisted Edwards-form elliptic curve digital signature scheme
@@ -152,7 +152,7 @@ Extended Triple Diffie --- Hellman (X3DH) combines multiple ECDH exchanges (incl
 prekeys and one-time prekeys) for asynchronous authenticated key agreement.
 The Double Ratchet algorithm then applies symmetric KDF ratcheting and periodic
 DH ratcheting to derive per-message keys, achieving both forward secrecy and
-post-compromise security. X3DH is used in Signal, WhatsApp, Viber, Chat X.509 v2.
+post-compromise security. X3DH + Double Ratchet is used in Signal, WhatsApp, Viber, and Chat X.509 v2.
 
 \subsection{Digital Identity / Long-term Keys}
 
@@ -170,7 +170,7 @@ over the same field as Curve25519:
 -x^2 + y^2 = 1 + d x^2 y^2,
 \]
 with high security and constant-time implementation (RFC 8032).
-Ed25519 is used in Signal, WhatsApp, Session, Viber.
+Ed25519 is used in Signal, WhatsApp, Session, and Viber.
 
 \subsubsection*{X.509 certificate-bound EC keys}
 Traditional X.509 certificates (ITU-T X.509 / RFC 5280) containing either
@@ -183,7 +183,7 @@ X.509 certificate envelopes for keys are used in Chat X.509 v1/v2.
 \subsubsection*{HKDF-SHA256/512}
 HMAC-based Extract-and-Expand KDF (RFC 5869) using SHA-256 or SHA-512.
 Provides domain separation and strong extraction from shared secrets.
-HKDF is used in Signal, WhatsApp, Chat X.509, Viber.
+HKDF is used in Signal, WhatsApp, Chat X.509, and Viber.
 
 \subsubsection*{Argon2id}
 Memory-hard password-based KDF (RFC 9106), hybrid of
@@ -200,13 +200,14 @@ nonce extension. HSalsa20 is used in Threema.
 
 \subsubsection*{AES-256}
 256-bit key Advanced Encryption Standard (FIPS 197) block cipher in GCM or IGE mode.
-AES-256-GCM is used in Signal, WhatsApp, Chat X.509 v1.
+AES-256 in CBC mode (with HMAC-SHA256 authentication) is used in Signal and WhatsApp.
+AES-256 in IGE mode is used in Telegram Secret Chats.
 
 \subsubsection*{ChaCha20}
 20-round variant of Salsa20 stream cipher (RFC 8439) with 256-bit
 key and 96/128-bit nonce. Addition-rotation-XOR design offers excellent
 software performance and timing-attack resistance.
-ChaCha20 is used in Chat X.509 v2.
+ChaCha20 (with Poly1305 authentication) is used in Chat X.509 v1 and v2.
 
 \subsubsection*{XSalsa20}
 Salsa20/20 core with 192-bit nonce extension. First 128 nonce bits and
@@ -223,18 +224,18 @@ Poly1305 is used in Threema, Session, Chat X.509 v1/v2.
 
 \subsubsection*{GCM tag}
 Galois-field authentication (GHASH) providing 128-bit security (birthday bound).
-GCM tag is used in Signal, WhatsApp, Viber.
+(Not used as primary authentication in the examined protocols; Signal/WhatsApp use HMAC-SHA256.)
 
 \subsubsection*{HMAC-SHA256}
 Standard HMAC construction for additional authentication in ratchet chains.
-HMAC is used in Signal additional layers.
+HMAC-SHA256 is used as primary message authentication in Signal, WhatsApp, and additional layers in the ratchet.
 
-\subsection{Authenticated Encryption}
+\subsection{Authenticated Encryption AEAD}
 
-\subsubsection*{AES-256-GCM}
+\subsubsection*{AES-256}
 Counter-mode encryption with Galois/Counter Mode authentication.
 Parallelizable, hardware-accelerated via AES-NI, ~128-bit security.
-AES-256-GCM AE is used in Signal, WhatsApp, Viber.
+(True AEAD not used; Signal and WhatsApp use AES-256-CBC + HMAC-SHA256 Encrypt-then-MAC construction.)
 
 \subsubsection*{ChaCha20-Poly1305}
 RFC 8439 AEAD: ChaCha20 keystream XOR encryption + Poly1305 authentication.
@@ -251,12 +252,12 @@ XSalsa20-Poly1305 is used in Session and Threema.
 \subsubsection*{Double Ratchet}
 Per-message key deletion and DH ratcheting ensure past messages remain
 confidential even if long-term keys are later compromised.
-Double Ratchet (2-Ratchet) is used in Signal, WhatsApp, Viber.
+Double Ratchet (2-Ratchet) is used in Signal, WhatsApp, Viber, Chat X.509 v2.
 
 \subsubsection*{Ephemeral}
 Session keys derived from ephemeral ECDH; provides forward secrecy
 for the session duration but not per-message. Ephemeral without
-ratchet is used in Threema, Session.
+ratchet is used in Threema, Session, Chat X.509 v1.
 
 \subsection{Post-Compromise Security}
 
@@ -338,9 +339,9 @@ processing.
 Key Agreement            & X25519 (X3DH + 2-Ratchet)      & X25519 (X3DH + 2-Ratchet) \\
 Identity / Long-term     & X25519 + Ed25519 signing       & X25519 + Ed25519 signing \\
 Key Derivation           & HKDF (SHA-256/512)             & HKDF (SHA-256/512) \\
-Symmetric Encryption     & AES-256-GCM                    & AES-256-GCM \\
-Authentication / MAC     & GCM tag / HMAC-SHA256          & GCM tag \\
-Authenticated Encryption & AES-256-GCM                    & AES-256-GCM \\
+Symmetric Encryption     & AES-256-CBC                    & AES-256-CBC \\
+Authentication / MAC     & HMAC-SHA256                    & HMAC-SHA256 \\
+Authenticated Encryption & AES-256-CBC /w HMAC-SHA256     & AES-256-CBC /w HMAC-SHA256 \\
 Forward Secrecy          & Yes (Double Ratchet)           & Yes (Double Ratchet) \\
 Post-Compromise Security & Yes                            & Yes \\
 Standards / Format       & Custom binary                  & Custom binary (Signal) \\ \hline
@@ -349,8 +350,8 @@ Standards / Format       & Custom binary                  & Custom binary (Signa
 
 \paragraph{}
 The choice of Curve25519 reflects a preference for modern,
-implementation-resistant curves over legacy NIST curves. AES-256-GCM
-was selected for its hardware acceleration and misuse resistance.
+implementation-resistant curves over legacy NIST curves. AES-256-CBC
+with HMAC-SHA256 was selected for its proven security and widespread support.
 WhatsApp inherits this design but modifies group key management
 (Sender Keys) to scale to very large user bases.
 
@@ -409,28 +410,28 @@ Standards / Format       & Custom binary (NaCl-inspired)  & libsodium sealed box
 \end{tabular}
 \end{center}
 
-\subsection{Viber}
+\subsection{Telegram Secret Chats and Viber}
 
 \begin{center}
 \begin{tabular}{|l|l|l|}
 \hline
 \textbf{Parameter}       & \textbf{Telegram Secret Chats} & \textbf{Viber} \\ \hline
-Key Agreement            & 2048-bit DH                    & X25519 (X3DH + 2-Ratchet) \\
-Identity / Long-term     & Server-mediated (long-term)    & X25519 ket pair\\
-Key Derivation           & Custom (SHA-256 based)         & HKDF (SHA-256/512) \\
-Symmetric Encryption     & AES-256-IGE                    & XSalsa20 \\
-Authentication / MAC     & Custom SHA-256 msg\_key        & HMAC-SHA256 \\
-Authenticated Encryption & Custom (IGE + MAC)             & XSalsa20+HMAC-SHA256 \\
-Forward Secrecy          & Yes (100msgs/1week)            & Yes (2-Ratchet) \\
-Post-Compromise Security & No                             & Yes (2-Ratchet) \\
-Standards / Format       & MTProto 2.0 custom             & 160-bit \\ \hline
+Key Agreement            & 2048-bit Diffie-Hellman        & X25519 (X3DH + 2-Ratchet) \\
+Identity / Long-term     & Server-mediated                & Ed25519 + X25519 \\
+Key Derivation           & Custom SHA-1/SHA-256           & HKDF-SHA256 \\
+Symmetric Encryption     & AES-256-IGE                    & AES-256-CBC \\
+Authentication / MAC     & Custom SHA-256                 & HMAC-SHA256 \\
+Authenticated Encryption & IGE + custom MAC               & AES-256-CBC /w HMAC-SHA256 \\
+Forward Secrecy          & Limited                        & Yes (Double Ratchet) \\
+Post-Compromise Security & No                             & Yes \\
+Standards / Format       & MTProto 2.0                    & Custom (Signal-inspired) \\ \hline
 \end{tabular}
 \end{center}
 
 \clearpage
 \subsection{Conclusion}
 
-All five protocols currently offer low quantum resistance due to their
+All examined protocols currently offer low quantum resistance due to their
 reliance on elliptic curves vulnerable to Shor's algorithm.
 Hybrid post-quantum constructions (e.g., PQXDH combining X25519 with
 lattice-based key encapsulation mechanisms ML-KEM) are already being
