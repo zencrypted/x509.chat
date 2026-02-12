@@ -32,8 +32,6 @@
   \vspace{20pt}{\color{nato}\LARGE\bfseries #1\par}
   \vspace{8pt}\addcontentsline{toc}{subsection}{#1}}
 
-\pagestyle{fancy}
-
 \fancyhf{}
 \fancyhead[R]{\small\color{footergray} February 14, 2026}
 \fancyfoot[L]{\small\color{footergray} Zen Crypted Chat X.509 Encryption Architecture}
@@ -59,7 +57,7 @@
   {\small Version 1.0 (11) Originally published February 14, 2026 \par}
 \end{titlepage}
 
-\clearpage
+\newpage
 
 \begin{center}
   {\Huge\color{nato}\bfseries Contents\par}
@@ -74,7 +72,7 @@
   --- focusing on their ciphers, algorithms, and underlying design decisions.
 \end{abstract}
 
-\clearpage
+\newpage
 
 \section{Cryptographic Properties}
 
@@ -266,6 +264,8 @@ ratchet is used in Threema, Session, Chat X.509 v1.
 Asymmetric DH ratchet introduces fresh entropy, allowing recovery of
 confidentiality after temporary state compromise.
 Double Ratchet is used in Signal, WhatsApp, Viber, Char X.509 v2.
+
+\newpage
 
 \section{Encryption Schemes}
 
