@@ -23,110 +23,95 @@
 \setcounter{secnumdepth}{-2}
 
 \let\oldsection\section
-\renewcommand\section[1]{%
-  \vspace{30pt}%
-  {\color{nato}\Huge\bfseries #1\par}%
-  \vspace{12pt}%
-  \addcontentsline{toc}{section}{#1}%
-}
+\renewcommand\section[1]{
+  \vspace{30pt}{\color{nato}\Huge\bfseries #1\par}
+  \vspace{12pt} \addcontentsline{toc}{section}{#1}}
 
 \let\oldsubsection\subsection
-\renewcommand\subsection[1]{%
-  \vspace{20pt}%
-  {\color{nato}\LARGE\bfseries #1\par}%
-  \vspace{8pt}%
-  \addcontentsline{toc}{subsection}{#1}%
-}
+\renewcommand\subsection[1]{
+  \vspace{20pt}{\color{nato}\LARGE\bfseries #1\par}
+  \vspace{8pt}\addcontentsline{toc}{subsection}{#1}}
 
-\pagestyle{fancy}
 \fancyhf{}
-\fancyhead[R]{\small\color{footergray} FEB 14, 2026}
+\fancyhead[R]{\small\color{footergray} February 14, 2026}
 \fancyfoot[L]{\small\color{footergray} Zen Crypted Chat X.509 Encryption Architecture}
 \fancyfoot[R]{\small\color{footergray}\thepage}
+
+\newcommand\HUGE[1]{\fontsize{40}{40}\selectfont #1}
 
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0.4pt}
 \renewcommand{\footrule}{\color{footergray}\hrule width \textwidth height 0.4pt}
 
 \begin{document}
+
 \pagestyle{fancy}
 
-% ==================== Cover page ====================
 \begin{titlepage}
-\AddToShipoutPictureBG*{\AtPageLowerLeft{\color{nato}\rule{\paperwidth}{\paperheight}}}
-\color{white}
-\thispagestyle{empty}
-
-\vspace*{4cm}
-\centering
-
-% Placeholder for logo (replace with \includegraphics if you have the file)
-{\LARGE \textbf{Zen Crypted} Chat X.509\par}
-\vspace{2cm}
-
-{\Huge\bfseries Tactical Communicator\par}
-\vspace{0.8cm}
-{\LARGE\bfseries Encryption Architecture\par}
-\vspace{2.5cm}
-{\large Technical White Paper\par}
-
-\vfill
-
-\small
-Version 1.0 (11) Originally published February 14, 2026\par
-
+  \AddToShipoutPictureBG*{\AtPageLowerLeft{\color{nato}\rule{\paperwidth}{\paperheight}}}
+  \color{white}\thispagestyle{empty}\vspace*{4cm}\centering
+  {\LARGE \textbf{Zen Crypted} Chat X.509 \par} \vspace{2cm}
+  {\HUGE  \textbf{Tactical Communicator} \par} \vspace{0.8cm}
+  {\LARGE \textbf{Encryption Architecture} \par} \vspace{2.5cm}
+  {\large Technical White Paper \par} \vfill
+  {\small Version 1.0 (11) Originally published February 14, 2026 \par}
 \end{titlepage}
-\clearpage
 
-% ==================== Table of Contents page ====================
+\newpage
 
 \begin{center}
-{\Huge\color{nato}\bfseries Contents\par}
+  {\Huge\color{nato}\bfseries Contents\par}
 \end{center}
 \vspace{40pt}
-\pagestyle{fancy}
-
 \tableofcontents
-
 \begin{abstract}
-Secure messaging applications rely on end-to-end encryption (E2EE)
-to protect user communications from interception and tampering.
-This article examines the cryptographic protocols employed by
-five messaging systems --- Threema, Signal, Session, WhatsApp, and Chat X.509
---- focusing on their ciphers, algorithms, and underlying design decisions.
+  Secure messaging applications rely on end-to-end encryption (E2EE)
+  to protect user communications from interception and tampering.
+  This article examines the cryptographic protocols employed by
+  five messaging systems --- Threema, Signal, Session, WhatsApp, and Chat X.509
+  --- focusing on their ciphers, algorithms, and underlying design decisions.
 \end{abstract}
 
-\clearpage
-\pagestyle{fancy}
+\newpage
 
 \section{Cryptographic Properties}
 
 \subsection{Introduction}
 
-End-to-end encrypted messaging has become a cornerstone of digital privacy. The strength of such systems depends critically on the cryptographic primitives and protocol constructions chosen during development. This work compares five representative secure messaging protocols with respect to their key agreement mechanisms, symmetric encryption schemes, authentication methods, secrecy properties, and supporting cryptographic libraries.
+End-to-end encrypted (E2EE) messaging has become a cornerstone of digital privacy.
+The strength of such systems depends critically on the cryptographic primitives
+and protocol constructions chosen during development.
+This work compares five representative secure messaging protocols with respect
+to their key agreement mechanisms, symmetric encryption schemes, authentication
+methods, secrecy properties, and supporting cryptographic libraries.
 
 The protocols under consideration are:
 \begin{itemize}
-    \item Chat X.509 v1/v2
-    \item Session (Oxen/Loki network)
-    \item Signal Protocol (basis for Signal and WhatsApp)
+    \item Chat X.509
+    \item Session
+    \item Signal
     \item Threema
     \item Viber
-    \item WhatsApp (modified Signal Protocol implementation)
+    \item WhatsApp
 \end{itemize}
 
-The comparison is structured around a set of core cryptographic parameters, followed by an analysis of the design trade-offs that led to the observed differences.
+The comparison is structured around a set of core cryptographic parameters,
+followed by an analysis of the design trade-offs that led to the observed differences.
 
 \subsection{Key Agreement}
 
-Key agreement establishes shared secrets between parties. All examined protocols use elliptic-curve-based Diffie--Hellman variants.
+Key agreement establishes shared secrets between parties.
+All examined protocols use elliptic-curve-based Diffie--Hellman variants.
 
 \subsubsection*{NIST P-256 ECDH}
-The NIST P-256 curve (secp256r1) is a 256-bit elliptic curve over the prime field \(\mathbb{F}_p\) with \(p = 2^{256} - 2^{224} + 2^{192} + 2^{96} - 1\), following the short Weierstrass equation
+The NIST P-256 curve (secp256r1) is a 256-bit elliptic curve over the prime
+field \(\mathbb{F}_p\) with \(p = 2^{256} - 2^{224} + 2^{192} + 2^{96} - 1\),
+following the short Weierstrass equation
 \[
-y^2 \equiv x^3 - 3x + b \pmod{p}.
+  y^2 \equiv x^3 - 3x + b \pmod{p}.
 \]
-It provides approximately 128 bits of security with cofactor \(h=1\). Standardized in NIST FIPS 186-4, it is widely supported but has faced criticism for its parameter origins.
+It provides approximately 128 bits of security with cofactor \(h=1\).
+Standardized in NIST FIPS 186-4, it is widely supported but has faced criticism for its parameter origins.
 NIST P-256 ECDH is used in Chat X.509 v1.
 
 \subsubsection*{Curve25519 / X25519}
@@ -134,29 +119,41 @@ Curve25519 is a Montgomery curve over \(\mathbb{F}_p\) with \(p = 2^{255} - 19\)
 \[
 By^2 = x^3 + Ax^2 + x, \quad A = 486662, \, B = 1.
 \]
-The X25519 function provides constant-time scalar multiplication with cofactor \(h=8\) and approximately 128-bit security. Its design prioritizes side-channel resistance and transparent parameters.
-Curve25519 / X25519 is used in Threema, Signal, WhatsApp, Session, Chat X.509 v2, Viber.
+The X25519 function provides constant-time scalar multiplication with
+cofactor \(h=8\) and approximately 128-bit security. Its design prioritizes
+side-channel resistance and transparent parameters. Curve25519 / X25519 is
+used in Threema, Signal, WhatsApp, Session, Chat X.509 v2, Viber.
 
 \subsubsection*{Ed25519}
-Ed25519 is a twisted Edwards-form elliptic curve digital signature scheme derived from Curve25519, operating over the same prime field \(\mathbb{F}_p\) with \(p = 2^{255} - 19\). The curve equation is
+Ed25519 is a twisted Edwards-form elliptic curve digital signature scheme
+derived from Curve25519, operating over the same prime field \(\mathbb{F}_p\)
+with \(p = 2^{255} - 19\). The curve equation is
 \[
 -x^2 + y^2 = 1 + dx^2 y^2,
 \]
-It provides roughly 128 bits of security with cofactor \(h=8\). Ed25519 uses the Edwards birational equivalence to Curve25519 for efficient, constant-time implementations, offering strong resistance to side-channel attacks and hash-function weaknesses via its EdDSA construction (double-hash of message and private key). It achieves the highest security level among widely deployed signature schemes (against both classical and quantum side-channel threats) and is standardized in RFC 8032 with widespread adoption in protocols like SSH, Signal, Session, and TLS.
+It provides roughly 128 bits of security with cofactor \(h=8\). Ed25519 uses
+the Edwards birational equivalence to Curve25519 for efficient, constant-time
+implementations, offering strong resistance to side-channel attacks and
+hash-function weaknesses via its EdDSA construction (double-hash of message
+and private key). It achieves the highest security level among widely deployed
+signature schemes (against both classical and quantum side-channel threats)
+and is standardized in RFC 8032 with widespread adoption in protocols like
+SSH, Signal, Session, and TLS.
 
 \subsubsection*{Ephemeral-Static ECDH}
 A single ephemeral ECDH exchange using one party's ephemeral key and the other's
 static public key establishes a session key. Provides forward secrecy for that
-session but no per-message key evolution. Ephemeral-Static ECDH keys provide minimal forward secrecy
-and are used in Threema, Session, Chat X.509 v1.
+session but no per-message key evolution. Ephemeral-Static ECDH keys provide
+minimal forward secrecy and are used in Threema, Session, Chat X.509 v1.
 
 \subsubsection*{X3DH + Double Ratchet}
 Extended Triple Diffie --- Hellman (X3DH) combines multiple ECDH exchanges (including signed
-prekeys and one-time prekeys) for asynchronous authenticated key agreement. The Double Ratchet algorithm then applies
-symmetric KDF ratcheting and periodic DH ratcheting to derive per-message keys,
-achieving both forward secrecy and post-compromise security. X3DH is used in Signal, WhatsApp, Viber.
+prekeys and one-time prekeys) for asynchronous authenticated key agreement.
+The Double Ratchet algorithm then applies symmetric KDF ratcheting and periodic
+DH ratcheting to derive per-message keys, achieving both forward secrecy and
+post-compromise security. X3DH is used in Signal, WhatsApp, Viber, Chat X.509 v2.
 
-\subsection{Identity / Long-term Keys}
+\subsection{Digital Identity / Long-term Keys}
 
 Long-term keys authenticate parties and bind identities.
 
@@ -165,8 +162,9 @@ Pure static Curve25519 keys registered with the server; no separate signing keys
 Curve25519 DH is used in Threema.
 
 \subsubsection*{Ed25519 + X25519}
-Long-term X25519 for key agreement, separate Ed25519 key for signing prekeys and identity authentication.
-Ed25519 is a twisted Edwards curve over the same field as Curve25519:
+Long-term X25519 for key agreement, separate Ed25519 key for signing
+prekeys and identity authentication. Ed25519 is a twisted Edwards curve
+over the same field as Curve25519:
 \[
 -x^2 + y^2 = 1 + d x^2 y^2,
 \]
@@ -240,8 +238,7 @@ AES-256-GCM AE is used in Signal, WhatsApp, Chat X.509 v1, Viber.
 
 \subsubsection*{ChaCha20-Poly1305}
 RFC 8439 AEAD: ChaCha20 keystream XOR encryption + Poly1305 authentication.
-High software speed, mandatory in TLS 1.3.
-ChaCha20-Poly1305 is used in Chat X.509 v2
+High software speed, mandatory in TLS 1.3. ChaCha20-Poly1305 is used in Chat X.509 v2.
 
 \subsubsection*{XSalsa20-Poly1305}
 NaCl-style separate encryption and authentication (not strictly AEAD but
@@ -257,22 +254,20 @@ confidential even if long-term keys are later compromised.
 Double Ratchet is used in Signal, WhatsApp, Viber.
 
 \subsubsection*{Ephemeral}
-Session keys derived from ephemeral ECDH; provides FS for the session duration but not per-message.
-Ephemeral without ratchet is used in Threema, Session, Chat X.509.
+Session keys derived from ephemeral ECDH; provides forward secrecy
+for the session duration but not per-message. Ephemeral without
+ratchet is used in Threema, Session, Chat X.509 v1.
 
 \subsection{Post-Compromise Security}
 
 \subsubsection*{Double Ratchet}
 Asymmetric DH ratchet introduces fresh entropy, allowing recovery of
 confidentiality after temporary state compromise.
-Double Ratchet is used in Signal, WhatsApp, Viber.
+Double Ratchet is used in Signal, WhatsApp, Viber, Char X.509 v2.
 
-\subsubsection*{Ratchet healing}
-Custom mechanism providing limited post-compromise recovery (implementation details not fully standardized).
-Ratchet healing is used in Chat X.509 v2.
+\newpage
 
 \section{Encryption Schemes}
-
 
 \subsection{Signal and WhatsApp}
 
@@ -331,7 +326,7 @@ with enterprise PKI environments and standards-based tooling over modern secrecy
 properties. The lack of ratcheting is a deliberate simplification,
 trading advanced security for compatibility.
 
-\newpage
+\clearpage
 \subsection{Session and Threema}
 
 Session uses libsodium sealed boxes and Argon2id for memory-hard key derivation,
@@ -379,12 +374,23 @@ Standards / Format       & MTProto 2.0 custom             & Proprietary (2-Ratch
 \end{tabular}
 \end{center}
 
-\newpage
+\clearpage
 \subsection{Conclusion}
 
-All five protocols currently offer low quantum resistance due to their reliance on elliptic curves vulnerable to Shor's algorithm. Hybrid post-quantum constructions (e.g., PQXDH combining X25519 with lattice-based key encapsulation mechanisms) are already being deployed experimentally in Signal-based applications. The ongoing standardization of Messaging Layer Security (MLS) promises improved group key management with forward secrecy and post-compromise security at scale.
+All five protocols currently offer low quantum resistance due to their
+reliance on elliptic curves vulnerable to Shor's algorithm.
+Hybrid post-quantum constructions (e.g., PQXDH combining X25519 with
+lattice-based key encapsulation mechanisms ML-KEM) are already being
+deployed experimentally in Signal-based applications. The ongoing
+standardization of Messaging Layer Security (MLS) promises improved
+group key management with forward secrecy and post-compromise security at scale.
 
-The cryptographic design choices in secure messengers reflect different priorities: maximal secrecy properties (Signal, WhatsApp), implementation simplicity and performance (Threema, Session), or standards compliance and interoperability (Chat X.509 v1). As quantum threats mature and group messaging requirements grow, future protocols will likely combine hybrid post-quantum key exchange, ratchet-based secrecy, and MLS-style group management.
+The cryptographic design choices in secure messengers reflect different
+priorities: maximal secrecy properties (Signal, WhatsApp), implementation
+simplicity and performance (Threema, Session), or standards compliance and
+interoperability (Chat X.509 v1). As quantum threats mature and group
+messaging requirements grow, future protocols will likely combine hybrid
+post-quantum key exchange, ratchet-based secrecy, and MLS-style group management.
 
 \begin{thebibliography}{9}
 
