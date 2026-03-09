@@ -1,0 +1,221 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{helvet}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{eso-pic}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\usepackage{microtype}
+\usepackage[english,ukrainian]{babel}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\definecolor{nato}{HTML}{293757}
+\definecolor{footergray}{gray}{0.65}
+\geometry{a4paper,left=3cm,right=3cm,top=3cm,bottom=3cm}
+\renewcommand{\familydefault}{\sfdefault}
+\setcounter{secnumdepth}{-2}
+\let\oldsection\section
+\renewcommand\section[1]{
+\vspace{30pt}{\color{nato}\Huge\bfseries #1\par}
+\vspace{12pt} \addcontentsline{toc}{section}{#1}}
+\let\oldsubsection\subsection
+\renewcommand\subsection[1]{
+\vspace{20pt}{\color{nato}\LARGE\bfseries #1\par}
+\vspace{8pt}\addcontentsline{toc}{subsection}{#1}}
+\fancyhf{}
+\fancyhead[R]{\small\color{footergray} March 09, 2026}
+\fancyfoot[L]{\small\color{footergray} Zen Crypted Technologies LLC Founding Documents}
+\fancyfoot[R]{\small\color{footergray}\thepage}
+\newcommand\HUGE[1]{\fontsize{40}{40}\selectfont #1}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\footrule}{\color{footergray}\hrule width \textwidth height 0.4pt}
+\begin{document}
+\pagestyle{fancy}
+\begin{titlepage}
+\AddToShipoutPictureBG*{\AtPageLowerLeft{\color{nato}\rule{\paperwidth}{\paperheight}}}
+\color{white}\thispagestyle{empty}\vspace*{4cm}\centering
+{\LARGE \textbf{Zen Crypted} Technologies LLC \par} \vspace{2cm}
+{\HUGE \textbf{Founding Statute} \par} \vspace{0.8cm}
+{\LARGE \textbf{With BDFL Governance and IP Holding Structure} \par} \vspace{2.5cm}
+{\large Official Charter Document \par} \vfill
+{\small Version 1.0 Originally published March 09, 2026 \par}
+\end{titlepage}
+\newpage
+\begin{center}
+{\Huge\color{nato}\bfseries Contents\par}
+\end{center}
+\vspace{40pt}
+\tableofcontents
+\begin{abstract}
+This document outlines the founding statute of Zen Crypted Technologies LLC, a Ukrainian limited liability company established to hold and manage intellectual property rights for the Zen Crypted Chat X.509 Tactical Communicator and related technologies. The structure incorporates a Benevolent Dictator For Life (BDFL) governance model, where a single author acts as the ultimate decision-maker, while the LLC owns all property rights in a for-profit capacity. Inspired by models like the Linux Foundation for IP stewardship and Scala for commercial licensing, the LLC issues sublicenses to system integrators and remits licensing fees to the BDFL author for official international implementations.
+\end{abstract}
+\newpage
+
+\section{General Provisions}
+
+\subsection{Company Name and Legal Form}
+The company is established as a Limited Liability Company under the laws of Ukraine, specifically the Civil Code of Ukraine, the Commercial Code of Ukraine, and the Law of Ukraine "On Limited Liability Companies" No. 2275-VI dated February 22, 2008 (as amended).
+Full name: ТОВ "Зен Кріптед Текнолоджіз" (Zen Crypted Technologies LLC).
+Abbreviated name: ТОВ "Зен Кріптед".
+The company is a for-profit entity focused on intellectual property holding, licensing, and commercialization of cryptographic communication technologies, including the Zen Crypted Chat X.509 Encryption Architecture.
+
+\subsection{Location and Term}
+Registered address: Kyiv, Kyiv City, Ukraine.
+The company is established for an indefinite term.
+
+\subsection{Purpose and Activities}
+The primary purpose is to own, manage, and license intellectual property related to secure messaging systems, including but not limited to the Zen Crypted Chat X.509 Tactical Communicator.
+Activities include:
+
+\begin{itemize}
+\item Holding copyrights, trademarks, patents, and other IP rights.
+\item Issuing sublicenses to system integrators and sublicensees.
+\item Collecting and distributing licensing fees, including remittances to the BDFL author.
+\item Commercial development and support of related technologies.
+\end{itemize}
+
+The company operates on a for-profit basis, similar to commercial open-source entities like those supporting Scala, while maintaining IP ownership akin to the Linux Foundation.
+
+\newpage
+\section{Founders and Capital}
+
+\subsection{Founders}
+The sole founder is the BDFL Author, referred to as the "Dictator" in governance matters.
+Name: Tönpa (full legal name as per Ukrainian registration).
+The founder contributes the initial intellectual property, including the Zen Crypted Chat X.509 Encryption Architecture whitepaper and related source code, valued at the statutory minimum capital.
+
+\subsection{Authorized Capital}
+The authorized capital is UAH 1,000 (one thousand Ukrainian hryvnias), the minimum required under Ukrainian law.
+Contributions:
+
+\begin{itemize}
+\item Intellectual property transfer: Valued at UAH 1,000, including all rights to the Zen Crypted technologies.
+\end{itemize}
+
+All IP rights are transferred to the LLC upon registration, with the BDFL retaining governance authority but no ownership reversion.
+
+\newpage
+\section{Governance and Management}
+
+\subsection{Benevolent Dictator For Life (BDFL) Model}
+The company adopts a BDFL governance structure, where the sole founder acts as the Benevolent Dictator For Life.
+The BDFL has ultimate decision-making authority over:
+
+\begin{itemize}
+\item Technical direction and product roadmap.
+\item Licensing policies and sublicense approvals.
+\item Strategic decisions, including partnerships and implementations.
+\end{itemize}
+
+This model ensures unified vision, similar to open-source projects like Python or Linux, but within a for-profit LLC framework.
+The BDFL's decisions are final and not subject to override by any other body, except as required by Ukrainian law.
+
+\subsection{Management Bodies}
+General Meeting: As a single-member LLC, the BDFL acts as the sole participant.
+Executive Body: The BDFL serves as the Director (CEO) without term limits.
+No supervisory board is required.
+Amendments to the statute require BDFL approval.
+
+\subsection{Decision-Making}
+
+All decisions are made by the BDFL. In case of incapacity, succession is determined by the BDFL's written designation or, failing that, by court appointment under Ukrainian law.
+
+\newpage
+\section{Intellectual Property Rights}
+
+\subsection{Ownership}
+All intellectual property rights, including copyrights, trademarks (e.g., "Zen Crypted", "Chat X.509"), patents, and trade secrets related to the company's products, are owned exclusively by the LLC.
+This includes the main product: Zen Crypted Chat X.509 Tactical Communicator Encryption Architecture.
+The structure mirrors the Linux Foundation's IP holding for Linux, where the foundation owns trademarks and coordinates development, but operates on a for-profit basis like Scala's commercial ecosystem.
+
+\subsection{Transfer from BDFL}
+Upon founding, the BDFL transfers all existing IP rights to the LLC via a contribution agreement.
+Future contributions by the BDFL are automatically assigned to the LLC.
+
+\newpage
+\section{Licensing and Revenue Distribution}
+
+\subsection{Licensing Model}
+The LLC acts as the IP Holding entity, issuing sublicenses for the use, modification, and commercial implementation of the technologies.
+Sublicenses may be granted to system integrators and sublicensees for official international implementations.
+Licenses can include open-source elements (e.g., under GPL or Apache) with commercial clauses.
+
+\subsection{Royalties to BDFL}
+For any sublicense issued, the LLC remits licensing fees (royalties) to the BDFL author.
+Structure:
+
+\begin{itemize}
+\item Percentage: 20% of net licensing revenue from official implementations.
+\item Trigger: Upon payment receipt from sublicensees for any sub-license (e.g., GPL-compatible commercial licenses).
+\item Payment: Quarterly, with audited reports.
+\end{itemize}
+
+This ensures the BDFL benefits from commercial success while the LLC retains IP control and operational profits.
+
+\subsection{Compliance}
+All licensing complies with Ukrainian IP law (Law "On Copyright and Related Rights") and international treaties (e.g., Berne Convention, TRIPS).
+
+\section{Rights and Obligations of the Participant}
+The sole participant (BDFL) has rights to:
+
+\begin{itemize}
+\item Govern as dictator.
+\item Receive dividends from profits (after royalties).
+\item Inspect company documents.
+\end{itemize}
+
+Obligations:
+
+\begin{itemize}
+\item Act in the company's best interest.
+\item Not compete directly without approval.
+\item Comply with Ukrainian corporate laws.
+\end{itemize}
+
+\section{Profit Distribution and Losses}
+Profits are distributed as dividends to the participant after:
+
+\begin{itemize}
+\item Remitting royalties to the BDFL.
+\item Reserving for operations and development.
+\end{itemize}
+
+Losses are covered by the authorized capital or additional contributions.
+
+\section{Reorganization and Liquidation}
+Reorganization or liquidation requires BDFL approval and follows Ukrainian law.
+Upon liquidation, assets (including IP) are distributed to the participant after creditor settlements.
+
+\section{Final Provisions}
+This statute is effective upon state registration.
+Amendments require BDFL consent and re-registration.
+Governing law: Laws of Ukraine.
+
+\clearpage
+
+\begin{thebibliography}{9}
+\bibitem{ukraine-llc-law}
+Verkhovna Rada of Ukraine.
+\newblock Law of Ukraine "On Limited Liability Companies" No. 2275-VI.
+\newblock February 22, 2008 (as amended).
+\newblock \url{https://zakon.rada.gov.ua/laws/show/2275-17}.
+\bibitem{ukraine-civil-code}
+Verkhovna Rada of Ukraine.
+\newblock Civil Code of Ukraine.
+\newblock January 16, 2003.
+\newblock \url{https://zakon.rada.gov.ua/laws/show/435-15}.
+\bibitem{linux-foundation-model}
+The Linux Foundation.
+\newblock Governance and IP Policies.
+\newblock \url{https://www.linuxfoundation.org/governance}.
+\bibitem{scala-licensing}
+Lightbend Inc.
+\newblock Scala Licensing and Commercial Model.
+\newblock \url{https://www.lightbend.com/scala}.
+\end{thebibliography}
+\end{document}
